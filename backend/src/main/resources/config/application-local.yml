@@ -1,0 +1,66 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/trit_dev?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${DB_USER:trit}
+    password: ${DB_PASSWORD}
+  elasticsearch:
+    uris:
+      - http://localhost:19200
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  mail:
+    host: smtp.gmail.com # SMTP 서버는 Gmail을 이용하겠습니다. Gmail SMTP의 비밀번호를 발급받아 와 주세요.
+    port: 587
+    username: ${SMTP_USERNAME} # 발급받을 때 사용한 이메일을 입력해 주세요.
+    password: ${SMTP_PASSWORD} # 발급받은 비밀번호를 입력해 주세요.
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY_ID} # AWS IAM Access Key 입니다. 테스트 할 때 메신저로 문의 주시면 보내드리겠습니다.
+        secret-key: ${AWS_SECRET_ACCESS_KEY} # AWS IAM Secret Key 입니다. 테스트 할 때 메신저로 문의 주시면 보내드리겠습니다.
+      region:
+        static: ap-northeast-2
+      s3:
+        bucket: ${AWS_BUCKET_NAME}
+
+logging:
+  level:
+    com.ssafy.jjtrip: debug
+    org.springframework.web: debug
+
+security:
+  cors:
+    allowed-origins: https://frontend.local.com:5173,http://localhost:5173
+
+ssh:
+  tunnel:
+    host: ${SSH_HOST}
+    port: ${SSH_PORT}
+    username: ${SSH_USER}
+    private-key-path: ${SSH_PEM_KEY_PATH}
+    forwardings:
+      - local-port: 13306
+        remote-host: 127.0.0.1
+        remote-port: 3306
+      - local-port: 19200
+        remote-host: 127.0.0.1
+        remote-port: 9200
+
+app:
+  jwt:
+    secret: ff2b8da9e84f6ecb2e7dc085a47d68cd221477ac8c744f7dc3ef9ae6e5f1723e167cd72b5698c3d0a8d8af94e4111fc02893ee953264357a18df856fe92a7059
+    access-token-expire-time: 864000000
+    refresh-token-expire-time: 86400000
+
+file:
+  base-url: https://${AWS_BUCKET_NAME}.s3.ap-northeast-2.amazonaws.com
