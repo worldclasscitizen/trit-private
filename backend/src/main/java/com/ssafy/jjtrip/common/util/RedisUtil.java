@@ -42,4 +42,19 @@ public class RedisUtil {
     ) {
         return stringRedisTemplate.opsForZSet().reverseRangeByScoreWithScores(key, min, max, offset, count);
     }
+
+    public void zaddPipelined(java.util.List<String> keys, String value, double score) {
+        if (keys == null || keys.isEmpty()) {
+            return;
+        }
+        stringRedisTemplate.executePipelined(new org.springframework.data.redis.core.SessionCallback<Object>() {
+            @Override
+            public Object execute(org.springframework.data.redis.core.RedisOperations operations) {
+                for (String key : keys) {
+                    operations.opsForZSet().add(key, value, score);
+                }
+                return null;
+            }
+        });
+    }
 }
