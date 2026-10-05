@@ -1,0 +1,100 @@
+package com.ssafy.jjtrip.domain.trip.controller;
+
+import com.ssafy.jjtrip.common.security.CustomUserDetails;
+import com.ssafy.jjtrip.domain.trip.dto.TripDetailResponseDto;
+import com.ssafy.jjtrip.domain.trip.dto.TripIdResponseDto;
+import com.ssafy.jjtrip.domain.trip.dto.TripItemsReplaceRequestDto;
+import com.ssafy.jjtrip.domain.trip.dto.TripResponseDto;
+import com.ssafy.jjtrip.domain.trip.dto.TripUpdateRequestDto;
+import com.ssafy.jjtrip.domain.trip.entity.Trip;
+import com.ssafy.jjtrip.domain.trip.entity.TripStatus;
+import com.ssafy.jjtrip.domain.trip.service.TripService;
+import jakarta.validation.Valid;
+import java.net.URI;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+@RestController
+@RequestMapping("/trips")
+@RequiredArgsConstructor
+public class TripController {
+
+    private final TripService tripService;
+
+    @PostMapping
+    public ResponseEntity<?> createTrip(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        Trip createdTrip = tripService.createTrip(userDetails.getUser().getId());
+        TripDetailResponseDto responseDto = TripDetailResponseDto.from(createdTrip, userDetails.getUser().getId(), null);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(createdTrip.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(responseDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getMyTrips(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @RequestParam(value = "status", required = false) TripStatus status
+    ) {
+        List<TripResponseDto> myTrips = tripService.findMyTrips(userDetails.getUser().getId(), status);
+        return ResponseEntity.ok(myTrips);
+    }
+
+    @GetMapping("/{tripId}")
+    public ResponseEntity<?> getTripDetail(@PathVariable Long tripId, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        Long userId = (userDetails != null) ? userDetails.getUser().getId() : null;
+        TripDetailResponseDto responseDto = tripService.getTripDetail(tripId, userId);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    @PatchMapping("/{tripId}")
+    public ResponseEntity<Void> updateTrip(
+            @PathVariable Long tripId,
+            @RequestBody TripUpdateRequestDto requestDto,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        tripService.updateTrip(tripId, requestDto, userDetails.getUser().getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{tripId}")
+    public ResponseEntity<?> deleteTrip(@PathVariable Long tripId, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        tripService.deleteTrip(tripId, userDetails.getUser().getId());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{tripId}/items")
+    public ResponseEntity<?> replaceTripItems(
+            @PathVariable Long tripId,
+            @Valid @RequestBody TripItemsReplaceRequestDto requestDto,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        tripService.replaceTripItems(tripId, requestDto, userDetails.getUser().getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{tripId}/scrap")
+    public ResponseEntity<TripIdResponseDto> scrapTrip(
+            @PathVariable Long tripId,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        Long newTripId = tripService.scrapTrip(tripId, userDetails.getUser().getId());
+        return ResponseEntity.ok(new TripIdResponseDto(newTripId));
+    }
+}
