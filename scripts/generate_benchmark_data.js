@@ -68,9 +68,8 @@ function sampleUnique(sourceMax, count, exclude) {
 for (let u = 1; u <= influencerCount; u++) {
     const targets = sampleUnique(userCount, Math.min(500, userCount - 1), u);
     for (const target of targets) {
-        const a = Math.min(u, target);
-        const b = Math.max(u, target);
-        friendshipSet.add(`${a},${b}`);
+        friendshipSet.add(`${u},${target}`);
+        friendshipSet.add(`${target},${u}`);
     }
 }
 
@@ -78,9 +77,8 @@ for (let u = influencerCount + 1; u <= userCount; u++) {
     const targetCount = getRandomInt(10, 30);
     const targets = sampleUnique(userCount, targetCount, u);
     for (const target of targets) {
-        const a = Math.min(u, target);
-        const b = Math.max(u, target);
-        friendshipSet.add(`${a},${b}`);
+        friendshipSet.add(`${u},${target}`);
+        friendshipSet.add(`${target},${u}`);
     }
 }
 

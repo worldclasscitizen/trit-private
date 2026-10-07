@@ -95,7 +95,29 @@ public class TripLogService {
         if ("db".equalsIgnoreCase(type)) {
             return getFriendTripLogFeedFromDb(userId, cursor, limit, memberId);
         }
+        if ("db-optimized".equalsIgnoreCase(type)) {
+            return getFriendTripLogFeedOptimized(userId, cursor, limit, memberId);
+        }
         return getFriendTripLogFeedFromRedis(userId, cursor, limit, memberId);
+    }
+
+    public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedOptimized(Long userId, Long cursor, int limit, Long memberId) {
+        final int queryLimit = limit + 1;
+        List<TripLogFeedResponseDto.FeedData> tripLogsData = tripLogMapper.findFriendTripLogsOptimized(userId, cursor, queryLimit, memberId);
+
+        boolean hasNext = tripLogsData.size() > limit;
+        if (hasNext) {
+            tripLogsData.remove(limit);
+        }
+
+        Long nextCursor = null;
+        if (!tripLogsData.isEmpty()) {
+            nextCursor = tripLogsData.get(tripLogsData.size() - 1).logId();
+        }
+
+        List<TripLogFeedResponseDto> tripLogs = mapToTripLogFeedResponse(tripLogsData);
+
+        return new SliceDto<>(tripLogs, nextCursor, hasNext);
     }
 
     public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedFromRedis(Long userId, Long cursor, int limit, Long memberId) {
