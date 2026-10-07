@@ -53,6 +53,8 @@ public class TripLogService {
     private final RedisUtil redisUtil;
 
     private static final String TIMELINE_KEY_PREFIX = "timeline:";
+    private static final String INFLUENCER_TIMELINE_KEY_PREFIX = "timeline:influencer:";
+    private static final int INFLUENCER_THRESHOLD = 500;
     private static final int FRIEND_FEED_DAYS_THRESHOLD = 3;
 
     @Transactional
@@ -348,6 +350,13 @@ public class TripLogService {
         }
 
         double score = createdAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+        if (friends.size() >= INFLUENCER_THRESHOLD) {
+            String influencerKey = INFLUENCER_TIMELINE_KEY_PREFIX + authorId;
+            redisUtil.zadd(influencerKey, String.valueOf(logId), score);
+            return;
+        }
+
         List<String> timelineKeys = friends.stream()
                 .map(friend -> TIMELINE_KEY_PREFIX + friend.getUserId())
                 .toList();
