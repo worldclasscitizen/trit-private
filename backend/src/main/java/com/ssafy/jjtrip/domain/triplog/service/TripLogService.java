@@ -91,7 +91,14 @@ public class TripLogService {
         return new TripLogCreateResponseDto(savedTripLog.getId());
     }
 
-    public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeed(Long userId, Long cursor, int limit, Long memberId) {
+    public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeed(Long userId, Long cursor, int limit, Long memberId, String type) {
+        if ("db".equalsIgnoreCase(type)) {
+            return getFriendTripLogFeedFromDb(userId, cursor, limit, memberId);
+        }
+        return getFriendTripLogFeedFromRedis(userId, cursor, limit, memberId);
+    }
+
+    public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedFromRedis(Long userId, Long cursor, int limit, Long memberId) {
         String timelineKey = TIMELINE_KEY_PREFIX + userId;
 
         long nowMs = System.currentTimeMillis();
@@ -123,6 +130,25 @@ public class TripLogService {
                 .toList();
 
         List<TripLogFeedResponseDto.FeedData> tripLogsData = tripLogMapper.findLogsByIds(logIds, memberId);
+
+        List<TripLogFeedResponseDto> tripLogs = mapToTripLogFeedResponse(tripLogsData);
+
+        return new SliceDto<>(tripLogs, nextCursor, hasNext);
+    }
+
+    public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedFromDb(Long userId, Long cursor, int limit, Long memberId) {
+        final int queryLimit = limit + 1;
+        List<TripLogFeedResponseDto.FeedData> tripLogsData = tripLogMapper.findFriendTripLogsFromDb(userId, cursor, queryLimit, memberId);
+
+        boolean hasNext = tripLogsData.size() > limit;
+        if (hasNext) {
+            tripLogsData.remove(limit);
+        }
+
+        Long nextCursor = null;
+        if (!tripLogsData.isEmpty()) {
+            nextCursor = tripLogsData.get(tripLogsData.size() - 1).logId();
+        }
 
         List<TripLogFeedResponseDto> tripLogs = mapToTripLogFeedResponse(tripLogsData);
 

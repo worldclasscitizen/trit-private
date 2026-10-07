@@ -98,10 +98,11 @@ public class TripLogController {
     public ResponseEntity<SliceDto<TripLogFeedResponseDto>> getFriendTripLogFeed(
             @RequestParam(required = false) Long cursor,
             @RequestParam(defaultValue = "10") int limit,
+            @RequestParam(defaultValue = "redis") String type,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         Long userId = userDetails.getUser().getId();
-        return ResponseEntity.ok(tripLogService.getFriendTripLogFeed(userId, cursor, limit, userId));
+        return ResponseEntity.ok(tripLogService.getFriendTripLogFeed(userId, cursor, limit, userId, type));
     }
 
     @GetMapping("/{logId}")

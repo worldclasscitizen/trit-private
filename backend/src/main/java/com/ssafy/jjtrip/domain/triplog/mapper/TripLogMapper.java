@@ -106,6 +106,56 @@ public interface TripLogMapper {
                 trip t ON tl.trip_id = t.id
             JOIN
                 user u ON t.user_id = u.id
+            JOIN
+                friendship f ON (
+                    (f.user_id_a = #{userId} AND f.user_id_b = t.user_id)
+                    OR
+                    (f.user_id_b = #{userId} AND f.user_id_a = t.user_id)
+                )
+            <where>
+                <if test="cursor != null">
+                    tl.id &lt; #{cursor}
+                </if>
+                AND tl.visibility = 'PUBLIC'
+                AND t.visibility = 'PUBLIC'
+            </where>
+            ORDER BY
+                tl.id DESC
+            LIMIT #{limit}
+            </script>
+            """)
+    List<TripLogFeedResponseDto.FeedData> findFriendTripLogsFromDb(
+            @Param("userId") Long userId,
+            @Param("cursor") Long cursor,
+            @Param("limit") int limit,
+            @Param("memberId") Long memberId
+    );
+
+    @Select("""
+            <script>
+            SELECT
+                tl.id as logId,
+                u.id as authorId,
+                u.nickname as authorNickname,
+                u.profile_image_url as authorImageUrl,
+                tl.title,
+                tl.content,
+                t.location_summary as locationSummary,
+                (SELECT COUNT(*) FROM log_like ll WHERE ll.log_id = tl.id) as likeCount,
+                (SELECT COUNT(*) FROM log_comment lc WHERE lc.log_id = tl.id) as commentCount,
+                <if test="memberId != null">
+                    EXISTS(SELECT 1 FROM log_like ll WHERE ll.log_id = tl.id AND ll.user_id = #{memberId}) as liked,
+                </if>
+                <if test="memberId == null">
+                    0 as liked,
+                </if>
+                tl.created_at as createdAt
+            FROM
+                trip_log tl
+            JOIN
+                trip t ON tl.trip_id = t.id
+            JOIN
+                user u ON t.user_id = u.id
             <where>
                 AND u.id = #{authorId}
                 <choose>
