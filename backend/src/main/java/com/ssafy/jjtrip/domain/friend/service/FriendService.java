@@ -144,6 +144,10 @@ public class FriendService {
         return friendMapper.findFriendsByUserId(userId);
     }
 
+    public List<Long> getInfluencerFriendIds(Long userId, int threshold) {
+        return friendMapper.findInfluencerFriendIds(userId, threshold);
+    }
+
     @Transactional
     public void deleteFriend(Long myUserId, Long friendId) {
         // 1. 친구 ID가 유효한지 검증

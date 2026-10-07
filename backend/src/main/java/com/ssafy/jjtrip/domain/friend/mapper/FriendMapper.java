@@ -87,5 +87,6 @@ public interface FriendMapper {
     })
     List<SimpleUserInfoDto> findFriendsByUserId(@Param("userId") Long userId);
 
-    // 10. 친구 피드 목록 조회
+    @Select("SELECT f.user_id_b FROM friendship f JOIN user_profile up ON up.user_id = f.user_id_b WHERE f.user_id_a = #{userId} AND up.friends_count >= #{threshold}")
+    List<Long> findInfluencerFriendIds(@Param("userId") Long userId, @Param("threshold") int threshold);
 }
