@@ -84,19 +84,23 @@ public class FriendService {
             throw new FriendException(FriendErrorCode.NOT_THE_RECEIVER);
         }
         
-        // friendship 테이블에 친구 관계 추가 (중복 방지를 위해 항상 작은 ID, 큰 ID 순서로 저장)
-        long userIdA = Math.min(friendRequest.getRequesterId(), friendRequest.getReceiverId());
-        long userIdB = Math.max(friendRequest.getRequesterId(), friendRequest.getReceiverId());
+        long requesterId = friendRequest.getRequesterId();
+        long receiverId = friendRequest.getReceiverId();
 
-        friendMapper.findFriendshipByUsers(userIdA, userIdB).ifPresent(friendship -> {
+        friendMapper.findFriendshipByUsers(requesterId, receiverId).ifPresent(friendship -> {
             throw new FriendException(FriendErrorCode.ALREADY_FRIENDS);
         });
 
-        Friendship friendship = Friendship.builder()
-                .userIdA(userIdA)
-                .userIdB(userIdB)
+        Friendship friendshipForward = Friendship.builder()
+                .userIdA(requesterId)
+                .userIdB(receiverId)
                 .build();
-        friendMapper.saveFriendship(friendship);
+        Friendship friendshipReverse = Friendship.builder()
+                .userIdA(receiverId)
+                .userIdB(requesterId)
+                .build();
+        friendMapper.saveFriendship(friendshipForward);
+        friendMapper.saveFriendship(friendshipReverse);
 
         // 양쪽 유저의 친구 수 증가
         userMapper.incrementFriendsCount(friendRequest.getRequesterId());
