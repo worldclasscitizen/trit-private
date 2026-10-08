@@ -52,6 +52,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/actuator/**",
                                 "/api/auth/login",
                                 "/api/auth/refresh",
                                 "/api/auth/signup",

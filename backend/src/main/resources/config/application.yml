@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-handlers-package: com.ssafy.jjtrip.domain.user.mapper
+
+openai:
+  api:
+    key: ${OPEN_AI_API_KEY}
+    url: https://gms.ssafy.io/gmsapi/api.openai.com/v1/chat/completions
+  model: ${OPEN_AI_MODEL:gpt-4o-mini}
+google:
+  maps:
+    api-key: ${GOOGLE_MAPS_API_KEY}
+api:
+  prefix: /api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: trit-app
