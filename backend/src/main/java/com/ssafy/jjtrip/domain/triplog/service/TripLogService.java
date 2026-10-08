@@ -321,11 +321,15 @@ public class TripLogService {
     @Async
     public void fanoutLogToFriendTimelines(Long authorId, Long logId, LocalDateTime createdAt) {
         List<SimpleUserInfoDto> friends = friendService.getFriendList(authorId);
-        double score = createdAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-
-        for (SimpleUserInfoDto friend : friends) {
-            String timelineKey = TIMELINE_KEY_PREFIX + friend.getUserId();
-            redisUtil.zadd(timelineKey, String.valueOf(logId), score);
+        if (friends == null || friends.isEmpty()) {
+            return;
         }
+
+        double score = createdAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        List<String> timelineKeys = friends.stream()
+                .map(friend -> TIMELINE_KEY_PREFIX + friend.getUserId())
+                .toList();
+
+        redisUtil.zaddPipelined(timelineKeys, String.valueOf(logId), score);
     }
 }
