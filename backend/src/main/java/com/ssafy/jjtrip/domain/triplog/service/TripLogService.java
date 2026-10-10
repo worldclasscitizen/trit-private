@@ -55,7 +55,7 @@ public class TripLogService {
 
     private static final String TIMELINE_KEY_PREFIX = "timeline:";
     private static final String INFLUENCER_TIMELINE_KEY_PREFIX = "timeline:influencer:";
-    private static final int INFLUENCER_THRESHOLD = 500;
+    private static final int INFLUENCER_THRESHOLD = 5000;
     private static final int FRIEND_FEED_DAYS_THRESHOLD = 3;
 
     @Transactional
