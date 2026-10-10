@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const userCount = parseInt(process.argv[2] || '5000', 10);
+const userCount = parseInt(process.argv[2] || '1500000', 10);
 const outputPath = process.argv[3] || path.join('scripts', 'benchmark_data.sql');
 
 const startTime = Date.now();
@@ -27,86 +27,39 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function sampleUnique(sourceMax, count, exclude) {
-    const selected = new Set();
-    const targetSize = Math.min(count, Math.max(0, sourceMax - 1));
-    let attempts = 0;
-    while (selected.size < targetSize && attempts < targetSize * 3) {
-        attempts++;
-        const candidate = getRandomInt(1, sourceMax);
-        if (candidate !== exclude) {
-            selected.add(candidate);
-        }
-    }
-    if (selected.size < targetSize) {
-        for (let i = 1; i <= sourceMax && selected.size < targetSize; i++) {
-            if (i !== exclude) {
-                selected.add(i);
-            }
-        }
-    }
-    return Array.from(selected);
+const megaInfluencerCount = 1;
+const macroInfluencerCount = Math.min(10, Math.max(1, Math.floor(userCount * 0.0001)));
+const microInfluencerCount = Math.min(500, Math.max(1, Math.floor(userCount * 0.001)));
+const totalInfluencers = megaInfluencerCount + macroInfluencerCount + microInfluencerCount;
+
+console.log(`Configuring target user base of ${userCount} users with realistic social topology...`);
+
+const friendsCountEstimates = new Int32Array(userCount + 1);
+
+if (userCount > 1) {
+    friendsCountEstimates[1] = Math.min(1000000, userCount - 1);
 }
 
-const influencerRatio = 0.03;
-const influencerCount = Math.max(1, Math.floor(userCount * influencerRatio));
-
-console.log(`Configuring ${userCount} users (${influencerCount} influencers, ${userCount - influencerCount} normal users)...`);
-
-const targetFriendsMap = new Int32Array(userCount + 1);
-
-for (let u = 1; u <= influencerCount; u++) {
-    const rand = Math.random();
-    let target = 0;
-    if (rand < 0.70) {
-        target = getRandomInt(2000, 5000);
-    } else if (rand < 0.90) {
-        target = getRandomInt(10000, 20000);
-    } else if (rand < 0.99) {
-        target = getRandomInt(300000, 800000);
-    } else {
-        target = getRandomInt(1000000, 1500000);
-    }
-    targetFriendsMap[u] = Math.min(target, userCount - 1);
+for (let u = 2; u <= 1 + macroInfluencerCount; u++) {
+    friendsCountEstimates[u] = Math.min(getRandomInt(100000, 300000), userCount - 1);
 }
 
-for (let u = influencerCount + 1; u <= userCount; u++) {
+for (let u = 2 + macroInfluencerCount; u <= totalInfluencers; u++) {
+    friendsCountEstimates[u] = Math.min(getRandomInt(5000, 30000), userCount - 1);
+}
+
+for (let u = totalInfluencers + 1; u <= userCount; u++) {
     const rand = Math.random();
-    let target = 0;
     if (rand < 0.05) {
-        target = getRandomInt(0, 50);
+        friendsCountEstimates[u] = Math.min(getRandomInt(0, 50), userCount - 1);
     } else if (rand < 0.90) {
-        target = getRandomInt(250, 750);
+        friendsCountEstimates[u] = Math.min(getRandomInt(250, 750), userCount - 1);
     } else {
-        target = getRandomInt(1000, 2000);
-    }
-    targetFriendsMap[u] = Math.min(target, userCount - 1);
-}
-
-console.log("Building bidirectional friendship network...");
-const friendshipMap = new Map();
-for (let u = 1; u <= userCount; u++) {
-    friendshipMap.set(u, new Set());
-}
-
-for (let u = 1; u <= userCount; u++) {
-    const myFriends = friendshipMap.get(u);
-    const needed = targetFriendsMap[u] - myFriends.size;
-    if (needed > 0) {
-        const candidates = sampleUnique(userCount, needed, u);
-        for (const target of candidates) {
-            myFriends.add(target);
-            friendshipMap.get(target).add(u);
-        }
+        friendsCountEstimates[u] = Math.min(getRandomInt(1000, 2000), userCount - 1);
     }
 }
 
-const friendsCountArray = new Int32Array(userCount + 1);
-for (let u = 1; u <= userCount; u++) {
-    friendsCountArray[u] = friendshipMap.get(u).size;
-}
-
-console.log("Writing user and user_profile records...");
+console.log("Writing user and user_profile records via streaming pipeline...");
 const batchSize = 1000;
 
 for (let i = 1; i <= userCount; i += batchSize) {
@@ -115,14 +68,23 @@ for (let i = 1; i <= userCount; i += batchSize) {
     const profileValues = [];
 
     for (let u = i; u <= endIdx; u++) {
-        const isInfluencer = u <= influencerCount;
-        const nickname = isInfluencer ? `influencer_user_${u}` : `normal_user_${u}`;
+        let nickname = "";
+        if (u === 1) {
+            nickname = "mega_influencer_1";
+        } else if (u <= 1 + macroInfluencerCount) {
+            nickname = `macro_influencer_${u}`;
+        } else if (u <= totalInfluencers) {
+            nickname = `influencer_user_${u}`;
+        } else {
+            nickname = `normal_user_${u}`;
+        }
+
         const email = `${nickname}@trit.com`;
         const pwdHash = "$2a$10$abcdefghijklmnopqrstuvwxyz1234567890ABCDEF";
-        const fCount = friendsCountArray[u];
+        const fCount = friendsCountEstimates[u];
 
         userValues.push(`(${u}, 1, 1, '${email}', '${pwdHash}', '${nickname}', NULL, NOW(), NOW())`);
-        profileValues.push(`(${u}, 'Bio of ${nickname}', 'Intro of ${nickname}', 1, 'Style summary', 1, NULL, 1, ${fCount}, NOW(), NOW())`);
+        profileValues.push(`(${u}, 'Bio of ${nickname}', 'Intro of ${nickname}', 1, 'Travel style summary', 1, NULL, 1, ${fCount}, NOW(), NOW())`);
     }
 
     writeStream.write("INSERT INTO user (id, role_id, status_id, email, password_hash, nickname, profile_image_url, created_at, updated_at) VALUES\n");
@@ -132,25 +94,64 @@ for (let i = 1; i <= userCount; i += batchSize) {
     writeStream.write(profileValues.join(",\n") + ";\n\n");
 }
 
-console.log("Writing friendship records...");
+console.log("Writing bidirectional friendship network via streaming chunks...");
 let friendshipPairs = [];
-for (let u = 1; u <= userCount; u++) {
-    const friends = friendshipMap.get(u);
-    for (const friendId of friends) {
-        friendshipPairs.push(`(${u}, ${friendId}, NOW())`);
+
+function flushFriendships() {
+    if (friendshipPairs.length > 0) {
+        writeStream.write("INSERT INTO friendship (user_id_a, user_id_b, created_at) VALUES\n");
+        writeStream.write(friendshipPairs.join(",\n") + ";\n");
+        friendshipPairs = [];
+    }
+}
+
+if (userCount > 1) {
+    const megaLimit = Math.min(1000000, userCount - 1);
+    for (let target = 2; target <= 1 + megaLimit; target++) {
+        friendshipPairs.push(`(1, ${target}, NOW())`);
+        friendshipPairs.push(`(${target}, 1, NOW())`);
         if (friendshipPairs.length >= batchSize) {
-            writeStream.write("INSERT INTO friendship (user_id_a, user_id_b, created_at) VALUES\n");
-            writeStream.write(friendshipPairs.join(",\n") + ";\n");
-            friendshipPairs = [];
+            flushFriendships();
         }
     }
 }
-if (friendshipPairs.length > 0) {
-    writeStream.write("INSERT INTO friendship (user_id_a, user_id_b, created_at) VALUES\n");
-    writeStream.write(friendshipPairs.join(",\n") + ";\n\n");
+
+for (let inf = 2; inf <= 1 + macroInfluencerCount; inf++) {
+    const targetSize = friendsCountEstimates[inf];
+    const step = Math.max(1, Math.floor(userCount / targetSize));
+    let connected = 0;
+    for (let t = 2; t <= userCount && connected < targetSize; t += step) {
+        if (t !== inf) {
+            friendshipPairs.push(`(${inf}, ${t}, NOW())`);
+            friendshipPairs.push(`(${t}, ${inf}, NOW())`);
+            connected++;
+            if (friendshipPairs.length >= batchSize) {
+                flushFriendships();
+            }
+        }
+    }
 }
 
-console.log("Generating trips, trip logs, likes, and comments...");
+const normalSampleCount = Math.min(userCount, 10000);
+for (let u = totalInfluencers + 1; u <= normalSampleCount; u++) {
+    const targetCount = Math.min(friendsCountEstimates[u], 50);
+    const clusterStart = Math.max(totalInfluencers + 1, u - Math.floor(targetCount / 2));
+    const clusterEnd = Math.min(userCount, clusterStart + targetCount);
+    for (let target = clusterStart; target <= clusterEnd; target++) {
+        if (target !== u) {
+            friendshipPairs.push(`(${u}, ${target}, NOW())`);
+            friendshipPairs.push(`(${target}, ${u}, NOW())`);
+            if (friendshipPairs.length >= batchSize) {
+                flushFriendships();
+            }
+        }
+    }
+}
+
+flushFriendships();
+writeStream.write("\n");
+
+console.log("Generating trips, logs, algorithm-viral likes, and organic comments...");
 let globalTripId = 0;
 let globalLogId = 0;
 let globalCommentId = 0;
@@ -161,7 +162,7 @@ let logBatch = [];
 let likeBatch = [];
 let commentBatch = [];
 
-function flushBatches() {
+function flushContentBatches() {
     if (tripBatch.length > 0) {
         writeStream.write("INSERT INTO trip (id, user_id, trip_status_id, title, start_date, end_date, visibility, location_summary, created_at, updated_at) VALUES\n");
         writeStream.write(tripBatch.join(",\n") + ";\n");
@@ -184,7 +185,9 @@ function flushBatches() {
     }
 }
 
-for (let u = 1; u <= userCount; u++) {
+const contentAuthorLimit = Math.min(userCount, 3000);
+
+for (let u = 1; u <= contentAuthorLimit; u++) {
     const activityRand = Math.random();
     let userLogCount = 0;
     if (activityRand < 0.30) {
@@ -208,11 +211,11 @@ for (let u = 1; u <= userCount; u++) {
         tripBatch.push(`(${globalTripId}, ${u}, 3, 'Trip ${globalTripId} of User ${u}', '2026-01-01', '2026-01-05', 'PUBLIC', 'Seoul, Korea', '${isoDate}', '${isoDate}')`);
 
         if (tripBatch.length >= batchSize) {
-            flushBatches();
+            flushContentBatches();
         }
     }
 
-    const followersCount = friendsCountArray[u];
+    const followersCount = friendsCountEstimates[u];
 
     for (let l = 0; l < userLogCount; l++) {
         globalLogId++;
@@ -224,39 +227,59 @@ for (let u = 1; u <= userCount; u++) {
 
         logBatch.push(`(${currentLogId}, ${matchingTripId}, 'Trip Log ${currentLogId}', 'Content of trip log ${currentLogId} by user ${u}', 'PUBLIC', '${isoDate}', '${isoDate}')`);
 
-        if (followersCount > 0) {
-            const likeRate = (getRandomInt(10, 20)) / 100;
-            const targetLikes = Math.floor(followersCount * likeRate);
-            const likeUsers = sampleUnique(userCount, targetLikes, u);
-            for (const likerId of likeUsers) {
-                likeBatch.push(`(${likerId}, ${currentLogId}, '${isoDate}')`);
-                if (likeBatch.length >= batchSize) {
-                    flushBatches();
+        const isViralPost = Math.random() < 0.03;
+        const isDeadPost = Math.random() < 0.25;
+
+        if (!isDeadPost) {
+            let likeCount = 0;
+            let commentCount = 0;
+
+            if (isViralPost) {
+                likeCount = Math.min(getRandomInt(5000, 20000), userCount - 1);
+                commentCount = Math.min(getRandomInt(500, 3000), userCount - 1);
+            } else if (followersCount > 0) {
+                const likeRate = (getRandomInt(10, 20)) / 100;
+                likeCount = Math.min(Math.floor(followersCount * likeRate), userCount - 1);
+                const commentRate = (getRandomInt(5, 80)) / 100;
+                commentCount = Math.min(Math.floor(followersCount * commentRate), userCount - 1);
+            }
+
+            const stepLike = Math.max(1, Math.floor(userCount / Math.max(1, likeCount)));
+            let likersAdded = 0;
+            for (let liker = 1; liker <= userCount && likersAdded < likeCount; liker += stepLike) {
+                if (liker !== u) {
+                    likeBatch.push(`(${liker}, ${currentLogId}, '${isoDate}')`);
+                    likersAdded++;
+                    if (likeBatch.length >= batchSize) {
+                        flushContentBatches();
+                    }
                 }
             }
 
-            const commentRate = (getRandomInt(5, 80)) / 100;
-            const targetComments = Math.floor(followersCount * commentRate);
-            const commentUsers = sampleUnique(userCount, targetComments, u);
-            for (const commenterId of commentUsers) {
-                globalCommentId++;
-                commentBatch.push(`(${globalCommentId}, ${currentLogId}, ${commenterId}, NULL, 'Comment ${globalCommentId} on log ${currentLogId}', 0, '${isoDate}', '${isoDate}')`);
-                if (commentBatch.length >= batchSize) {
-                    flushBatches();
+            const stepComment = Math.max(1, Math.floor(userCount / Math.max(1, commentCount)));
+            let commentersAdded = 0;
+            for (let commenter = 1; commenter <= userCount && commentersAdded < commentCount; commenter += stepComment) {
+                if (commenter !== u) {
+                    globalCommentId++;
+                    commentBatch.push(`(${globalCommentId}, ${currentLogId}, ${commenter}, NULL, 'Comment ${globalCommentId} on log ${currentLogId}', 0, '${isoDate}', '${isoDate}')`);
+                    commentersAdded++;
+                    if (commentBatch.length >= batchSize) {
+                        flushContentBatches();
+                    }
                 }
             }
         }
 
         if (logBatch.length >= batchSize || tripBatch.length >= batchSize) {
-            flushBatches();
+            flushContentBatches();
         }
     }
 }
 
-flushBatches();
+flushContentBatches();
 
 writeStream.end(() => {
     const elapsedSec = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(`Benchmark SQL generated at ${outputPath} in ${elapsedSec}s.`);
-    console.log(`Summary: Users=${userCount}, Trips=${globalTripId}, Logs=${globalLogId}, Comments=${globalCommentId}`);
+    console.log(`Summary: TotalUsers=${userCount}, Trips=${globalTripId}, Logs=${globalLogId}, Likes=${likeBatch.length}, Comments=${globalCommentId}`);
 });
