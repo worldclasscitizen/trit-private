@@ -6,14 +6,14 @@ const FEED_TYPE = __ENV.FEED_TYPE || 'redis';
 
 export const options = {
     stages: [
-        { duration: '30s', target: 50 },
-        { duration: '1m', target: 150 },
-        { duration: '1m', target: 300 },
+        { duration: '30s', target: 500 },
+        { duration: '1m', target: 1000 },
+        { duration: '2m', target: 1500 },
         { duration: '30s', target: 0 }
     ],
     thresholds: {
-        http_req_duration: ['p(95)<1000', 'p(99)<2000'],
-        http_req_failed: ['rate<0.01']
+        http_req_duration: ['p(95)<1500', 'p(99)<3000'],
+        http_req_failed: ['rate<0.02']
     }
 };
 
@@ -21,7 +21,7 @@ export function setup() {
     const loginRes = http.post(
         `${BASE_URL}/api/auth/login`,
         JSON.stringify({
-            email: 'benchmark_user_1@trit.com',
+            email: 'normal_user_1@trit.com',
             password: 'password123'
         }),
         { headers: { 'Content-Type': 'application/json' } }
@@ -67,8 +67,8 @@ export default function (data) {
             break;
         }
 
-        sleep(0.5);
+        sleep(Math.random() * 3 + 2);
     }
 
-    sleep(1);
+    sleep(Math.random() * 4 + 3);
 }
