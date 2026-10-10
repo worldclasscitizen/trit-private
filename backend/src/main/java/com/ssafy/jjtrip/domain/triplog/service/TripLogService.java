@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,6 +54,8 @@ public class TripLogService {
     private final RedisUtil redisUtil;
 
     private static final String TIMELINE_KEY_PREFIX = "timeline:";
+    private static final String INFLUENCER_TIMELINE_KEY_PREFIX = "timeline:influencer:";
+    private static final int INFLUENCER_THRESHOLD = 5000;
     private static final int FRIEND_FEED_DAYS_THRESHOLD = 3;
 
     @Transactional
@@ -98,7 +101,75 @@ public class TripLogService {
         if ("db-optimized".equalsIgnoreCase(type)) {
             return getFriendTripLogFeedOptimized(userId, cursor, limit, memberId);
         }
+        if ("hybrid".equalsIgnoreCase(type)) {
+            return getFriendTripLogFeedHybrid(userId, cursor, limit, memberId);
+        }
         return getFriendTripLogFeedFromRedis(userId, cursor, limit, memberId);
+    }
+
+    public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedHybrid(Long userId, Long cursor, int limit, Long memberId) {
+        String userTimelineKey = TIMELINE_KEY_PREFIX + userId;
+
+        long nowMs = System.currentTimeMillis();
+        long minScore = nowMs - Duration.ofDays(FRIEND_FEED_DAYS_THRESHOLD).toMillis();
+        long maxScore = (cursor == null) ? Long.MAX_VALUE : cursor - 1;
+
+        int queryLimit = limit + 1;
+
+        List<ZSetOperations.TypedTuple<String>> mergedTuples = new ArrayList<>();
+
+        Set<ZSetOperations.TypedTuple<String>> userTuples =
+                redisUtil.zrevrangeByScoreWithScores(userTimelineKey, minScore, maxScore, 0, queryLimit);
+        if (userTuples != null && !userTuples.isEmpty()) {
+            mergedTuples.addAll(userTuples);
+        }
+
+        List<Long> influencerFriendIds = friendService.getInfluencerFriendIds(userId, INFLUENCER_THRESHOLD);
+        for (Long influencerId : influencerFriendIds) {
+            String influencerKey = INFLUENCER_TIMELINE_KEY_PREFIX + influencerId;
+            Set<ZSetOperations.TypedTuple<String>> infTuples =
+                    redisUtil.zrevrangeByScoreWithScores(influencerKey, minScore, maxScore, 0, queryLimit);
+            if (infTuples != null && !infTuples.isEmpty()) {
+                mergedTuples.addAll(infTuples);
+            }
+        }
+
+        if (mergedTuples.isEmpty()) {
+            return new SliceDto<>(Collections.emptyList(), null, false);
+        }
+
+        Map<String, ZSetOperations.TypedTuple<String>> deduplicated = new LinkedHashMap<>();
+        for (ZSetOperations.TypedTuple<String> tuple : mergedTuples) {
+            if (tuple.getValue() != null) {
+                deduplicated.putIfAbsent(tuple.getValue(), tuple);
+            }
+        }
+
+        List<ZSetOperations.TypedTuple<String>> sortedTuples = new ArrayList<>(deduplicated.values());
+        sortedTuples.sort((t1, t2) -> {
+            double s1 = (t1.getScore() != null) ? t1.getScore() : 0.0;
+            double s2 = (t2.getScore() != null) ? t2.getScore() : 0.0;
+            return Double.compare(s2, s1);
+        });
+
+        boolean hasNext = sortedTuples.size() > limit;
+        if (hasNext) {
+            sortedTuples = sortedTuples.subList(0, limit);
+        }
+
+        Long nextCursor = sortedTuples.isEmpty()
+                ? null
+                : sortedTuples.get(sortedTuples.size() - 1).getScore().longValue();
+
+        List<Long> logIds = sortedTuples.stream()
+                .map(t -> Long.valueOf(t.getValue()))
+                .toList();
+
+        List<TripLogFeedResponseDto.FeedData> tripLogsData = tripLogMapper.findLogsByIds(logIds, memberId);
+
+        List<TripLogFeedResponseDto> tripLogs = mapToTripLogFeedResponse(tripLogsData);
+
+        return new SliceDto<>(tripLogs, nextCursor, hasNext);
     }
 
     public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedOptimized(Long userId, Long cursor, int limit, Long memberId) {
@@ -348,6 +419,13 @@ public class TripLogService {
         }
 
         double score = createdAt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+        if (friends.size() >= INFLUENCER_THRESHOLD) {
+            String influencerKey = INFLUENCER_TIMELINE_KEY_PREFIX + authorId;
+            redisUtil.zadd(influencerKey, String.valueOf(logId), score);
+            return;
+        }
+
         List<String> timelineKeys = friends.stream()
                 .map(friend -> TIMELINE_KEY_PREFIX + friend.getUserId())
                 .toList();
