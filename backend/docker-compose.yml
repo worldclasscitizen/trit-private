@@ -19,6 +19,8 @@ services:
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
 
+      MEMCACHED_SERVERS: memcached:11211
+
       SMTP_USERNAME: ${SMTP_USERNAME}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
@@ -108,6 +110,22 @@ services:
       timeout: 3s
       retries: 30
       start_period: 10s
+
+  memcached:
+    image: memcached:1.6-alpine
+    container_name: trit-memcached
+    restart: unless-stopped
+    command:
+      [
+        "memcached",
+        "-m", "512",
+        "-t", "4",
+        "-c", "4096"
+      ]
+    ports:
+      - "127.0.0.1:11211:11211"
+    networks:
+      - trit-net
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
