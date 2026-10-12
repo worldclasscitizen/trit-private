@@ -13,6 +13,7 @@ import com.ssafy.jjtrip.domain.trip.mapper.TripMapper;
 import com.ssafy.jjtrip.domain.triplog.dto.response.TripLogSummaryDto;
 import com.ssafy.jjtrip.domain.triplog.entity.TripLog;
 import com.ssafy.jjtrip.domain.triplog.mapper.TripLogMapper;
+import com.ssafy.jjtrip.domain.triplog.service.FeedCacheService;
 import com.ssafy.jjtrip.domain.user.dto.request.UpdateUserRequestDto;
 import com.ssafy.jjtrip.domain.user.dto.response.ProfileImageUpdateResponseDto;
 import com.ssafy.jjtrip.domain.user.dto.response.PublicUserProfileResponseDto;
@@ -45,6 +46,7 @@ public class UserService {
 
     private final TripMapper tripMapper;
     private final TripLogMapper tripLogMapper;
+    private final FeedCacheService feedCacheService;
 
     public UserProfileResponseDto getUserProfile(Long userId) {
         UserAndProfileDto userAndProfile = userMapper.findUserAndProfileById(userId)
@@ -170,6 +172,7 @@ public class UserService {
     public void updateUserProfile(Long userId, UpdateUserRequestDto updateUserRequestDto) {
         if (StringUtils.hasText(updateUserRequestDto.getNickname())) {
             userMapper.updateNickname(userId, updateUserRequestDto.getNickname());
+            feedCacheService.evictAuthorProfile(userId);
         }
         if (StringUtils.hasText(updateUserRequestDto.getBio())) {
             userMapper.upsertBio(userId, updateUserRequestDto.getBio());
@@ -202,6 +205,7 @@ public class UserService {
         String newImageUrl = s3Provider.upload(profileImage, DIR);
 
         userMapper.updateProfileImageUrl(userId, newImageUrl);
+        feedCacheService.evictAuthorProfile(userId);
 
         if (StringUtils.hasText(oldImageUrl)) {
             s3Provider.deleteImage(oldImageUrl);
@@ -219,6 +223,7 @@ public class UserService {
         if (StringUtils.hasText(imageUrl)) {
             s3Provider.deleteImage(imageUrl);
             userMapper.deleteProfileImageUrl(userId);
+            feedCacheService.evictAuthorProfile(userId);
         }
     }
     
