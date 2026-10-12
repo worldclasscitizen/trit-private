@@ -514,4 +514,32 @@ public interface TripLogMapper {
 
     @Select("SELECT user_id FROM log_comment WHERE id = #{commentId}")
     Optional<Long> findCommentAuthorId(Long commentId);
+
+    record AuthorProfileInfo(Long authorId, String nickname, String profileImageUrl) {}
+
+    record LogLikeUserPair(Long logId, Long userId) {}
+
+    @Select("""
+            <script>
+            SELECT id AS authorId, nickname, profile_image_url AS profileImageUrl
+            FROM user
+            WHERE id IN
+            <foreach item='item' collection='userIds' open='(' separator=',' close=')'>
+                #{item}
+            </foreach>
+            </script>
+            """)
+    List<AuthorProfileInfo> findAuthorProfilesByIds(@Param("userIds") List<Long> userIds);
+
+    @Select("""
+            <script>
+            SELECT log_id AS logId, user_id AS userId
+            FROM log_like
+            WHERE log_id IN
+            <foreach item='item' collection='logIds' open='(' separator=',' close=')'>
+                #{item}
+            </foreach>
+            </script>
+            """)
+    List<LogLikeUserPair> findLikeUserPairsByLogIds(@Param("logIds") List<Long> logIds);
 }
