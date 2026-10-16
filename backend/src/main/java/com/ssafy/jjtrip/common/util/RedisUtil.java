@@ -73,6 +73,57 @@ public class RedisUtil {
         stringRedisTemplate.opsForSet().remove(key, values);
     }
 
+    public boolean saddMember(String key, String value) {
+        Long added = stringRedisTemplate.opsForSet().add(key, value);
+        return added != null && added > 0;
+    }
+
+    public boolean sremMember(String key, String value) {
+        Long removed = stringRedisTemplate.opsForSet().remove(key, value);
+        return removed != null && removed > 0;
+    }
+
+    public boolean isSetMember(String key, String value) {
+        return Boolean.TRUE.equals(stringRedisTemplate.opsForSet().isMember(key, value));
+    }
+
+    public Set<String> smembers(String key) {
+        Set<String> members = stringRedisTemplate.opsForSet().members(key);
+        return members != null ? members : java.util.Collections.emptySet();
+    }
+
+    public void saddRaw(String key, String... values) {
+        if (values == null || values.length == 0) {
+            return;
+        }
+        stringRedisTemplate.opsForSet().add(key, values);
+    }
+
+    public void hset(String key, String field, String value) {
+        stringRedisTemplate.opsForHash().put(key, field, value);
+    }
+
+    public java.util.Map<Object, Object> hgetAll(String key) {
+        java.util.Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries(key);
+        return entries != null ? entries : java.util.Collections.emptyMap();
+    }
+
+    public boolean setIfAbsent(String key, String value, long timeoutSeconds) {
+        return Boolean.TRUE.equals(stringRedisTemplate.opsForValue().setIfAbsent(key, value, Duration.ofSeconds(timeoutSeconds)));
+    }
+
+    public boolean rename(String oldKey, String newKey) {
+        try {
+            if (!Boolean.TRUE.equals(stringRedisTemplate.hasKey(oldKey))) {
+                return false;
+            }
+            stringRedisTemplate.rename(oldKey, newKey);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public java.util.List<Object> checkLikedStatusPipelined(
             java.util.List<Long> logIds,
             String keyPrefix,
