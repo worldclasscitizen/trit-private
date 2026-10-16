@@ -17,6 +17,7 @@ public class TripLogLikeService {
 
     private final TripLogMapper tripLogMapper;
     private final NotificationService notificationService;
+    private final FeedCacheService feedCacheService;
 
     public TripLogLikeResponseDto getLikeStatus(Long logId, Long userId) {
         if (!tripLogMapper.existsById(logId)) {
@@ -39,6 +40,7 @@ public class TripLogLikeService {
         });
 
         int likeCount = tripLogMapper.getLikeCount(logId);
+        feedCacheService.syncLikeAdded(logId, userId, likeCount);
         return new TripLogLikeResponseDto(true, likeCount);
     }
 
@@ -49,6 +51,7 @@ public class TripLogLikeService {
         }
         tripLogMapper.deleteLike(logId, userId);
         int likeCount = tripLogMapper.getLikeCount(logId);
+        feedCacheService.syncLikeRemoved(logId, userId, likeCount);
         return new TripLogLikeResponseDto(false, likeCount);
     }
 

@@ -52,6 +52,7 @@ public class TripLogService {
     private final TripLogSearchService tripLogSearchService;
     private final FriendService friendService;
     private final RedisUtil redisUtil;
+    private final FeedCacheService feedCacheService;
 
     private static final String TIMELINE_KEY_PREFIX = "timeline:";
     private static final String INFLUENCER_TIMELINE_KEY_PREFIX = "timeline:influencer:";
@@ -104,7 +105,73 @@ public class TripLogService {
         if ("hybrid".equalsIgnoreCase(type)) {
             return getFriendTripLogFeedHybrid(userId, cursor, limit, memberId);
         }
+        if ("hybrid-memcached".equalsIgnoreCase(type)) {
+            return getFriendTripLogFeedHybridMemcached(userId, cursor, limit, memberId);
+        }
         return getFriendTripLogFeedFromRedis(userId, cursor, limit, memberId);
+    }
+
+    public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedHybridMemcached(Long userId, Long cursor, int limit, Long memberId) {
+        String userTimelineKey = TIMELINE_KEY_PREFIX + userId;
+
+        long nowMs = System.currentTimeMillis();
+        long minScore = nowMs - Duration.ofDays(FRIEND_FEED_DAYS_THRESHOLD).toMillis();
+        long maxScore = (cursor == null) ? Long.MAX_VALUE : cursor - 1;
+
+        int queryLimit = limit + 1;
+
+        List<ZSetOperations.TypedTuple<String>> mergedTuples = new ArrayList<>();
+
+        Set<ZSetOperations.TypedTuple<String>> userTuples =
+                redisUtil.zrevrangeByScoreWithScores(userTimelineKey, minScore, maxScore, 0, queryLimit);
+        if (userTuples != null && !userTuples.isEmpty()) {
+            mergedTuples.addAll(userTuples);
+        }
+
+        List<Long> influencerFriendIds = friendService.getInfluencerFriendIds(userId, INFLUENCER_THRESHOLD);
+        for (Long influencerId : influencerFriendIds) {
+            String influencerKey = INFLUENCER_TIMELINE_KEY_PREFIX + influencerId;
+            Set<ZSetOperations.TypedTuple<String>> infTuples =
+                    redisUtil.zrevrangeByScoreWithScores(influencerKey, minScore, maxScore, 0, queryLimit);
+            if (infTuples != null && !infTuples.isEmpty()) {
+                mergedTuples.addAll(infTuples);
+            }
+        }
+
+        if (mergedTuples.isEmpty()) {
+            return new SliceDto<>(Collections.emptyList(), null, false);
+        }
+
+        Map<String, ZSetOperations.TypedTuple<String>> deduplicated = new LinkedHashMap<>();
+        for (ZSetOperations.TypedTuple<String> tuple : mergedTuples) {
+            if (tuple.getValue() != null) {
+                deduplicated.putIfAbsent(tuple.getValue(), tuple);
+            }
+        }
+
+        List<ZSetOperations.TypedTuple<String>> sortedTuples = new ArrayList<>(deduplicated.values());
+        sortedTuples.sort((t1, t2) -> {
+            double s1 = (t1.getScore() != null) ? t1.getScore() : 0.0;
+            double s2 = (t2.getScore() != null) ? t2.getScore() : 0.0;
+            return Double.compare(s2, s1);
+        });
+
+        boolean hasNext = sortedTuples.size() > limit;
+        if (hasNext) {
+            sortedTuples = sortedTuples.subList(0, limit);
+        }
+
+        Long nextCursor = sortedTuples.isEmpty()
+                ? null
+                : sortedTuples.get(sortedTuples.size() - 1).getScore().longValue();
+
+        List<Long> logIds = sortedTuples.stream()
+                .map(t -> Long.valueOf(t.getValue()))
+                .toList();
+
+        List<TripLogFeedResponseDto> tripLogs = feedCacheService.hydrateFeedLogs(logIds, memberId);
+
+        return new SliceDto<>(tripLogs, nextCursor, hasNext);
     }
 
     public SliceDto<TripLogFeedResponseDto> getFriendTripLogFeedHybrid(Long userId, Long cursor, int limit, Long memberId) {
@@ -351,6 +418,7 @@ public class TripLogService {
         Trip trip = tripService.findTripById(updatedLog.getTripId());
         List<String> imageUrls = extractImageUrls(updatedLog.getContent());
         tripLogSearchService.saveTripLog(updatedLog, trip, imageUrls);
+        feedCacheService.evictPostEntity(logId);
     }
 
     private void processAndSaveImages(Long logId, Long userId, String content) {
@@ -378,6 +446,7 @@ public class TripLogService {
         validateLogAuthor(logId, userId);
         tripLogMapper.deleteTripLog(logId);
         tripLogSearchService.deleteTripLog(logId);
+        feedCacheService.evictPostEntity(logId);
     }
 
     private void validateLogAuthor(Long logId, Long userId) {

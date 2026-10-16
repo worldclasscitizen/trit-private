@@ -57,4 +57,40 @@ public class RedisUtil {
             }
         });
     }
+
+    public void sadd(String key, long expireSeconds, String... values) {
+        if (values == null || values.length == 0) {
+            return;
+        }
+        stringRedisTemplate.opsForSet().add(key, values);
+        stringRedisTemplate.expire(key, Duration.ofSeconds(expireSeconds));
+    }
+
+    public void srem(String key, Object... values) {
+        if (values == null || values.length == 0) {
+            return;
+        }
+        stringRedisTemplate.opsForSet().remove(key, values);
+    }
+
+    public java.util.List<Object> checkLikedStatusPipelined(
+            java.util.List<Long> logIds,
+            String keyPrefix,
+            String memberIdStr
+    ) {
+        if (logIds == null || logIds.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+        return stringRedisTemplate.executePipelined(new org.springframework.data.redis.core.SessionCallback<Object>() {
+            @Override
+            public Object execute(org.springframework.data.redis.core.RedisOperations operations) {
+                for (Long logId : logIds) {
+                    String key = keyPrefix + logId;
+                    operations.hasKey(key);
+                    operations.opsForSet().isMember(key, memberIdStr);
+                }
+                return null;
+            }
+        });
+    }
 }

@@ -24,6 +24,7 @@ public class TripLogCommentService {
 
     private final TripLogMapper tripLogMapper;
     private final NotificationService notificationService;
+    private final FeedCacheService feedCacheService;
 
     @Transactional
     public void addComment(Long logId, Long userId, TripLogCommentRequestDto commentRequestDto) {
@@ -36,6 +37,7 @@ public class TripLogCommentService {
                 .content(commentRequestDto.content())
                 .build();
         tripLogMapper.insertComment(comment);
+        feedCacheService.incrementCommentCount(logId);
 
         tripLogMapper.findAuthorIdByLogId(logId).ifPresent(authorId -> {
             notificationService.send(userId, authorId, NotificationType.COMMENT, commentRequestDto.content(), logId, "/triplog/" + logId);
@@ -53,11 +55,15 @@ public class TripLogCommentService {
     @Transactional
     public void deleteComment(Long userId, Long commentId) {
         validateCommentOwnership(userId, commentId);
+        Long logId = tripLogMapper.findLogIdByCommentId(commentId).orElse(null);
 
         if (tripLogMapper.hasReplies(commentId)) {
             tripLogMapper.softDeleteComment(commentId);
         } else {
             tripLogMapper.deleteComment(commentId);
+            if (logId != null) {
+                feedCacheService.decrementCommentCount(logId);
+            }
         }
     }
 

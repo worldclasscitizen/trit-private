@@ -64,3 +64,7 @@ app:
 
 file:
   base-url: https://${AWS_BUCKET_NAME}.s3.ap-northeast-2.amazonaws.com
+
+memcached:
+  servers: ${MEMCACHED_SERVERS:localhost:11211}
+  pool-size: ${MEMCACHED_POOL_SIZE:4}
