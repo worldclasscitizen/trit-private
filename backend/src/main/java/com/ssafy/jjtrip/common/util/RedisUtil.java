@@ -43,6 +43,39 @@ public class RedisUtil {
         return stringRedisTemplate.opsForZSet().reverseRangeByScoreWithScores(key, min, max, offset, count);
     }
 
+    @SuppressWarnings("unchecked")
+    public java.util.List<Set<ZSetOperations.TypedTuple<String>>> zrevrangeByScoreWithScoresPipelined(
+            java.util.List<String> keys, double min, double max, long offset, long count
+    ) {
+        if (keys == null || keys.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+        final int chunkSize = 100;
+        java.util.List<Set<ZSetOperations.TypedTuple<String>>> result = new java.util.ArrayList<>(keys.size());
+
+        for (int i = 0; i < keys.size(); i += chunkSize) {
+            java.util.List<String> chunk = keys.subList(i, Math.min(i + chunkSize, keys.size()));
+            java.util.List<Object> rawResults = stringRedisTemplate.executePipelined(new org.springframework.data.redis.core.SessionCallback<Object>() {
+                @Override
+                public Object execute(org.springframework.data.redis.core.RedisOperations operations) {
+                    for (String key : chunk) {
+                        operations.opsForZSet().reverseRangeByScoreWithScores(key, min, max, offset, count);
+                    }
+                    return null;
+                }
+            });
+
+            if (rawResults != null) {
+                for (Object obj : rawResults) {
+                    if (obj instanceof Set<?> set) {
+                        result.add((Set<ZSetOperations.TypedTuple<String>>) set);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
     public void zaddPipelined(java.util.List<String> keys, String value, double score) {
         if (keys == null || keys.isEmpty()) {
             return;
