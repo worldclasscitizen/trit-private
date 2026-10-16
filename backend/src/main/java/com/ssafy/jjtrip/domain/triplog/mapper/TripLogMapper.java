@@ -387,8 +387,30 @@ public interface TripLogMapper {
     @Insert("INSERT IGNORE INTO log_like (log_id, user_id) VALUES (#{logId}, #{userId})")
     void insertLike(@Param("logId") Long logId, @Param("userId") Long userId);
 
+    @Insert("""
+            <script>
+            INSERT IGNORE INTO log_like (log_id, user_id) VALUES
+            <foreach collection='userIds' item='uId' separator=','>
+                (#{logId}, #{uId})
+            </foreach>
+            </script>
+            """)
+    void insertLikesBatch(@Param("logId") Long logId, @Param("userIds") List<Long> userIds);
+
     @Delete("DELETE FROM log_like WHERE log_id = #{logId} AND user_id = #{userId}")
     void deleteLike(@Param("logId") Long logId, @Param("userId") Long userId);
+
+    @Delete("""
+            <script>
+            DELETE FROM log_like
+            WHERE log_id = #{logId}
+            AND user_id IN
+            <foreach collection='userIds' item='uId' open='(' separator=',' close=')'>
+                #{uId}
+            </foreach>
+            </script>
+            """)
+    void deleteLikesBatch(@Param("logId") Long logId, @Param("userIds") List<Long> userIds);
 
     @Select("SELECT EXISTS(SELECT 1 FROM log_like WHERE log_id = #{logId} AND user_id = #{userId})")
     boolean hasUserLiked(@Param("logId") Long logId, @Param("userId") Long userId);

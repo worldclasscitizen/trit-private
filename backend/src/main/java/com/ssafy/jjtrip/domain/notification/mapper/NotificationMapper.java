@@ -38,4 +38,11 @@ public interface NotificationMapper {
     
     @Delete("DELETE FROM notification WHERE id = #{id}")
     void deleteById(@Param("id") Long id);
+
+    @Delete("DELETE FROM notification WHERE sender_id = #{senderId} AND target_id = #{targetId} AND type = #{type}")
+    void deleteBySenderAndTargetAndType(
+            @Param("senderId") Long senderId,
+            @Param("targetId") Long targetId,
+            @Param("type") com.ssafy.jjtrip.domain.notification.entity.NotificationType type
+    );
 }
