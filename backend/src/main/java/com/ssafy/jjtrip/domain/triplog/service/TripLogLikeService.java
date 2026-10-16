@@ -1,61 +1,108 @@
 package com.ssafy.jjtrip.domain.triplog.service;
 
-import com.ssafy.jjtrip.domain.notification.entity.NotificationType;
-import com.ssafy.jjtrip.domain.notification.service.NotificationService;
+import com.ssafy.jjtrip.common.util.MemcachedUtil;
+import com.ssafy.jjtrip.common.util.RedisUtil;
 import com.ssafy.jjtrip.domain.triplog.dto.response.TripLogLikeResponseDto;
 import com.ssafy.jjtrip.domain.triplog.exception.TripLogErrorCode;
 import com.ssafy.jjtrip.domain.triplog.exception.TripLogException;
 import com.ssafy.jjtrip.domain.triplog.mapper.TripLogMapper;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class TripLogLikeService {
 
     private final TripLogMapper tripLogMapper;
-    private final NotificationService notificationService;
-    private final FeedCacheService feedCacheService;
+    private final RedisUtil redisUtil;
+    private final MemcachedUtil memcachedUtil;
+
+    private static final String LIKED_USERS_KEY_PREFIX = "post:liked_users:";
+    private static final String LIKE_COUNT_KEY_PREFIX = "post:like_count:";
+    private static final String LIKE_BUFFER_PREFIX = "like:buffer:";
+    private static final String DIRTY_LOGS_KEY = "like:dirty_logs";
+    private static final String SENTINEL = "__SENTINEL__";
+    private static final int DEFAULT_TTL_SECONDS = 3600;
 
     public TripLogLikeResponseDto getLikeStatus(Long logId, Long userId) {
-        if (!tripLogMapper.existsById(logId)) {
-            throw new TripLogException(TripLogErrorCode.LOG_NOT_FOUND);
-        }
-        boolean liked = tripLogMapper.hasUserLiked(logId, userId);
-        int likeCount = tripLogMapper.getLikeCount(logId);
+        validateLogExists(logId);
+        ensureLikedUsersLoaded(logId);
+        boolean liked = redisUtil.isSetMember(LIKED_USERS_KEY_PREFIX + logId, String.valueOf(userId));
+        int likeCount = getLikeCount(logId);
         return new TripLogLikeResponseDto(liked, likeCount);
     }
 
-    @Transactional
     public TripLogLikeResponseDto likeTripLog(Long logId, Long userId) {
-        if (!tripLogMapper.existsById(logId)) {
-            throw new TripLogException(TripLogErrorCode.LOG_NOT_FOUND);
-        }
-        tripLogMapper.insertLike(logId, userId);
-        
-        tripLogMapper.findAuthorIdByLogId(logId).ifPresent(authorId -> {
-            notificationService.send(userId, authorId, NotificationType.LIKE, null, logId, "/triplog/" + logId);
-        });
+        validateLogExists(logId);
+        ensureLikedUsersLoaded(logId);
 
-        int likeCount = tripLogMapper.getLikeCount(logId);
-        feedCacheService.syncLikeAdded(logId, userId, likeCount);
-        return new TripLogLikeResponseDto(true, likeCount);
+        String userIdStr = String.valueOf(userId);
+        String logIdStr = String.valueOf(logId);
+
+        boolean isNewLike = redisUtil.saddMember(LIKED_USERS_KEY_PREFIX + logId, userIdStr);
+        int currentCount = getLikeCount(logId);
+
+        if (isNewLike) {
+            long newCount = memcachedUtil.incr(LIKE_COUNT_KEY_PREFIX + logId, 1L, currentCount + 1, DEFAULT_TTL_SECONDS);
+            currentCount = (int) newCount;
+            redisUtil.hset(LIKE_BUFFER_PREFIX + logId, userIdStr, "LIKE");
+            redisUtil.saddRaw(DIRTY_LOGS_KEY, logIdStr);
+        }
+
+        return new TripLogLikeResponseDto(true, currentCount);
     }
 
-    @Transactional
     public TripLogLikeResponseDto unlikeTripLog(Long logId, Long userId) {
-        if (!tripLogMapper.existsById(logId)) {
-            throw new TripLogException(TripLogErrorCode.LOG_NOT_FOUND);
+        validateLogExists(logId);
+        ensureLikedUsersLoaded(logId);
+
+        String userIdStr = String.valueOf(userId);
+        String logIdStr = String.valueOf(logId);
+
+        boolean isRemoved = redisUtil.sremMember(LIKED_USERS_KEY_PREFIX + logId, userIdStr);
+        int currentCount = getLikeCount(logId);
+
+        if (isRemoved) {
+            long newCount = memcachedUtil.decr(LIKE_COUNT_KEY_PREFIX + logId, 1L, Math.max(0, currentCount - 1), DEFAULT_TTL_SECONDS);
+            currentCount = (int) newCount;
+            redisUtil.hset(LIKE_BUFFER_PREFIX + logId, userIdStr, "UNLIKE");
+            redisUtil.saddRaw(DIRTY_LOGS_KEY, logIdStr);
         }
-        tripLogMapper.deleteLike(logId, userId);
-        int likeCount = tripLogMapper.getLikeCount(logId);
-        feedCacheService.syncLikeRemoved(logId, userId, likeCount);
-        return new TripLogLikeResponseDto(false, likeCount);
+
+        return new TripLogLikeResponseDto(false, currentCount);
     }
 
     public int getLikeCount(Long logId) {
-        return tripLogMapper.getLikeCount(logId);
+        Object raw = memcachedUtil.get(LIKE_COUNT_KEY_PREFIX + logId);
+        if (raw != null) {
+            try {
+                return Integer.parseInt(raw.toString().trim());
+            } catch (NumberFormatException ignored) {}
+        }
+        int dbCount = tripLogMapper.getLikeCount(logId);
+        memcachedUtil.set(LIKE_COUNT_KEY_PREFIX + logId, DEFAULT_TTL_SECONDS, String.valueOf(dbCount));
+        return dbCount;
+    }
+
+    private void validateLogExists(Long logId) {
+        if (!tripLogMapper.existsById(logId)) {
+            throw new TripLogException(TripLogErrorCode.LOG_NOT_FOUND);
+        }
+    }
+
+    private void ensureLikedUsersLoaded(Long logId) {
+        String key = LIKED_USERS_KEY_PREFIX + logId;
+        if (redisUtil.hasKey(key)) {
+            return;
+        }
+        List<TripLogMapper.LogLikeUserPair> pairs = tripLogMapper.findLikeUserPairsByLogIds(List.of(logId));
+        List<String> members = new ArrayList<>(pairs.size() + 1);
+        members.add(SENTINEL);
+        for (TripLogMapper.LogLikeUserPair pair : pairs) {
+            members.add(String.valueOf(pair.userId()));
+        }
+        redisUtil.sadd(key, DEFAULT_TTL_SECONDS, members.toArray(new String[0]));
     }
 }

@@ -126,4 +126,9 @@ public class NotificationService {
     public void delete(Long notificationId) {
         notificationMapper.deleteById(notificationId);
     }
+
+    @Transactional
+    public void retractLikeNotification(Long senderId, Long targetId) {
+        notificationMapper.deleteBySenderAndTargetAndType(senderId, targetId, NotificationType.LIKE);
+    }
 }

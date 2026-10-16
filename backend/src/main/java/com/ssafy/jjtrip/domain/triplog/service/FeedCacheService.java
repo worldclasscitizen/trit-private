@@ -264,6 +264,8 @@ public class FeedCacheService {
         memcachedUtil.delete(LIKE_COUNT_KEY_PREFIX + logId);
         memcachedUtil.delete(COMMENT_COUNT_KEY_PREFIX + logId);
         redisUtil.delete(LIKED_USERS_KEY_PREFIX + logId);
+        redisUtil.delete("like:buffer:" + logId);
+        redisUtil.srem("like:dirty_logs", String.valueOf(logId));
     }
 
     public void evictAuthorProfile(Long userId) {
