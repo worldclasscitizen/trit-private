@@ -129,14 +129,7 @@ public class TripLogService {
         }
 
         List<Long> influencerFriendIds = friendService.getInfluencerFriendIds(userId, INFLUENCER_THRESHOLD);
-        for (Long influencerId : influencerFriendIds) {
-            String influencerKey = INFLUENCER_TIMELINE_KEY_PREFIX + influencerId;
-            Set<ZSetOperations.TypedTuple<String>> infTuples =
-                    redisUtil.zrevrangeByScoreWithScores(influencerKey, minScore, maxScore, 0, queryLimit);
-            if (infTuples != null && !infTuples.isEmpty()) {
-                mergedTuples.addAll(infTuples);
-            }
-        }
+        mergeInfluencerTimelines(influencerFriendIds, minScore, maxScore, queryLimit, mergedTuples);
 
         if (mergedTuples.isEmpty()) {
             return new SliceDto<>(Collections.emptyList(), null, false);
@@ -192,14 +185,7 @@ public class TripLogService {
         }
 
         List<Long> influencerFriendIds = friendService.getInfluencerFriendIds(userId, INFLUENCER_THRESHOLD);
-        for (Long influencerId : influencerFriendIds) {
-            String influencerKey = INFLUENCER_TIMELINE_KEY_PREFIX + influencerId;
-            Set<ZSetOperations.TypedTuple<String>> infTuples =
-                    redisUtil.zrevrangeByScoreWithScores(influencerKey, minScore, maxScore, 0, queryLimit);
-            if (infTuples != null && !infTuples.isEmpty()) {
-                mergedTuples.addAll(infTuples);
-            }
-        }
+        mergeInfluencerTimelines(influencerFriendIds, minScore, maxScore, queryLimit, mergedTuples);
 
         if (mergedTuples.isEmpty()) {
             return new SliceDto<>(Collections.emptyList(), null, false);
@@ -500,5 +486,27 @@ public class TripLogService {
                 .toList();
 
         redisUtil.zaddPipelined(timelineKeys, String.valueOf(logId), score);
+    }
+
+    private void mergeInfluencerTimelines(
+            List<Long> influencerFriendIds,
+            double minScore,
+            double maxScore,
+            int queryLimit,
+            List<ZSetOperations.TypedTuple<String>> targetList
+    ) {
+        if (influencerFriendIds == null || influencerFriendIds.isEmpty()) {
+            return;
+        }
+        List<String> influencerKeys = influencerFriendIds.stream()
+                .map(id -> INFLUENCER_TIMELINE_KEY_PREFIX + id)
+                .toList();
+        List<Set<ZSetOperations.TypedTuple<String>>> pipelinedTuples =
+                redisUtil.zrevrangeByScoreWithScoresPipelined(influencerKeys, minScore, maxScore, 0, queryLimit);
+        for (Set<ZSetOperations.TypedTuple<String>> tuples : pipelinedTuples) {
+            if (tuples != null && !tuples.isEmpty()) {
+                targetList.addAll(tuples);
+            }
+        }
     }
 }
