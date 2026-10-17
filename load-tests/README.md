@@ -7,8 +7,8 @@
 1. 단방향 DB Pull (`FEED_TYPE=db`): OR 조인 기반 단방향 친구 관계 조회
 2. 양방향 최적화 DB Pull (`FEED_TYPE=db-optimized`): 양방향 친구 관계 및 단일 복합 인덱스 스캔 조회
 3. 순수 Redis Push (`FEED_TYPE=redis`): Pipelined ZADD 기반의 모든 친구 타임라인 전송
-4. 인플루언서 하이브리드 (`FEED_TYPE=hybrid`): 친구 수 5,000명 미만 일반 사용자는 Redis Push, 5,000명 이상 인플루언서는 Redis Pull 격리 후 인메모리 병합 및 DB Hydration
-5. Meta 스타일 하이브리드 + Memcached (`FEED_TYPE=hybrid-memcached`): 타임라인 인덱스는 Redis 하이브리드(Push+Pull)로 조합하고, 게시물 본문·작성자 프로필·실시간 카운터는 정규화된 Memcached 멀티스레드 캐시(`MGET`) 및 Redis Set 파이프라인으로 조립(Hydration)하여 MySQL 조회 부하를 최소화
+4. 인플루언서 하이브리드 (`FEED_TYPE=hybrid`): 친구 수 5,000명 미만 일반 사용자는 Redis Push, 5,000명 이상 인플루언서는 Redis Pull 격리 후 100개 단위 Redis Pipelining 일괄 조회 및 인메모리 병합
+5. Meta 스타일 하이브리드 + Memcached (`FEED_TYPE=hybrid-memcached`): 타임라인 인덱스는 100개 단위 Redis Pipelining 하이브리드(Push+Pull)로 조합하고, 게시물 본문·작성자 프로필·실시간 카운터는 정규화된 Memcached 멀티스레드 캐시(`MGET`) 및 Redis Set 파이프라인으로 조립(Hydration)하여 MySQL 조회 부하를 최소화
 
 **테스트 시나리오 구성**
 1. `feed_read_benchmark.js`: 무한 스크롤(커서 페이징 3회 연속 요청) 순수 읽기 부하 테스트 (동시 사용자 최대 1,500명, 체류 시간 2~5초)
