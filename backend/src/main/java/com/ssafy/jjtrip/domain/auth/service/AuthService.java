@@ -63,6 +63,7 @@ public class AuthService {
         if (expiration > 0) {
             redisUtil.set(REDIS_BLACKLIST_PREFIX + accessToken, "logout", expiration);
         }
+        jwtTokenProvider.evictToken(accessToken);
     }
 
     @Transactional
