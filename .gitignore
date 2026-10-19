@@ -1,0 +1,7 @@
+scripts/*.sql
+scripts/benchmark_data.sql
+.env
+*.log
+k6.exe
+load-tests/k6.exe
+
