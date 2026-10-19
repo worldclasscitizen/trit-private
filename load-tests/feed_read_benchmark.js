@@ -36,7 +36,8 @@ export function setup() {
 
 export default function (data) {
     const headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Connection': 'keep-alive'
     };
     if (data.token) {
         headers['Authorization'] = `Bearer ${data.token}`;
