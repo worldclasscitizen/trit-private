@@ -17,6 +17,8 @@ import java.security.Key;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +34,15 @@ public class JwtTokenProvider {
     private final Key key;
     private final long accessTokenExpireTime;
     private final long refreshTokenExpireTime;
+    private final Map<String, CachedAuth> authCache = new ConcurrentHashMap<>();
+    private static final long AUTH_CACHE_TTL_MS = 60000L;
+    private static final int MAX_AUTH_CACHE_SIZE = 2000;
+
+    private record CachedAuth(Authentication authentication, long expiresAt) {
+        boolean isExpired() {
+            return System.currentTimeMillis() > expiresAt;
+        }
+    }
 
     public JwtTokenProvider(@Value("${app.jwt.secret}") String secretKey,
                             @Value("${app.jwt.access-token-expire-time}") long accessTokenExpireTime,
@@ -67,6 +78,11 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String accessToken) {
+        CachedAuth cached = authCache.get(accessToken);
+        if (cached != null && !cached.isExpired()) {
+            return cached.authentication();
+        }
+
         Claims claims = parseClaims(accessToken);
 
         if (claims.get("role") == null) {
@@ -92,10 +108,23 @@ public class JwtTokenProvider {
 
         CustomUserDetails principal = new CustomUserDetails(principalUser);
 
-        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+        Authentication auth = new UsernamePasswordAuthenticationToken(principal, "", authorities);
+
+        if (authCache.size() > MAX_AUTH_CACHE_SIZE) {
+            authCache.clear();
+        }
+        long remaining = getRemainingExpireTime(accessToken);
+        long ttl = Math.min(AUTH_CACHE_TTL_MS, Math.max(0, remaining));
+        authCache.put(accessToken, new CachedAuth(auth, System.currentTimeMillis() + ttl));
+
+        return auth;
     }
 
     public void validateToken(String token) {
+        CachedAuth cached = authCache.get(token);
+        if (cached != null && !cached.isExpired()) {
+            return;
+        }
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
         } catch (SecurityException | MalformedJwtException
@@ -106,6 +135,10 @@ public class JwtTokenProvider {
             log.info("Expired JWT Token", e);
             throw new AuthException(AuthErrorCode.JWT_TOKEN_EXPIRED);
         }
+    }
+
+    public void evictToken(String token) {
+        authCache.remove(token);
     }
 
     private Claims parseClaims(String accessToken) {
