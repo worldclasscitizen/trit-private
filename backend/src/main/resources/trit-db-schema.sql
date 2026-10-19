@@ -57,6 +57,7 @@ CREATE TABLE `user_profile` (
   `created_at`              DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`              DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
+  KEY `idx_user_profile_friends_count` (`friends_count`),
   CONSTRAINT `fk_user_profile_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
