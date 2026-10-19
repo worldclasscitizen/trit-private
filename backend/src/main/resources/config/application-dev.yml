@@ -8,6 +8,10 @@ spring:
     url: jdbc:mysql://${DB_HOST:mysql}:${DB_PORT:3306}/${DB_NAME:trit_dev}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${DB_USER:trit}
     password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 10
+      connection-timeout: 30000
   elasticsearch:
     uris:
       - http://elasticsearch:9200

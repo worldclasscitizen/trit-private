@@ -41,7 +41,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 @lombok.extern.slf4j.Slf4j
 public class TripLogService {
     private final TripLogMapper tripLogMapper;
