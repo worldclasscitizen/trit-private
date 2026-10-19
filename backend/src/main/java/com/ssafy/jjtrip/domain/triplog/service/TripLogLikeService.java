@@ -23,6 +23,7 @@ public class TripLogLikeService {
     private static final String LIKE_COUNT_KEY_PREFIX = "post:like_count:";
     private static final String LIKE_BUFFER_PREFIX = "like:buffer:";
     private static final String DIRTY_LOGS_KEY = "like:dirty_logs";
+    private static final String POST_ENTITY_KEY_PREFIX = "post:entity:";
     private static final String SENTINEL = "__SENTINEL__";
     private static final int DEFAULT_TTL_SECONDS = 3600;
 
@@ -87,6 +88,12 @@ public class TripLogLikeService {
     }
 
     private void validateLogExists(Long logId) {
+        if (redisUtil.hasKey(LIKED_USERS_KEY_PREFIX + logId)) {
+            return;
+        }
+        if (memcachedUtil.get(POST_ENTITY_KEY_PREFIX + logId) != null) {
+            return;
+        }
         if (!tripLogMapper.existsById(logId)) {
             throw new TripLogException(TripLogErrorCode.LOG_NOT_FOUND);
         }
