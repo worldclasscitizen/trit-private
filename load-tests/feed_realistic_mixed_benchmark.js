@@ -216,8 +216,33 @@ export function commentScenario(data) {
 
 export function postCreationScenario(data) {
     const headers = getAuthHeaders(getVuToken(data));
+
+    const tripRes = http.post(`${BASE_URL}/api/trips`, null, { headers });
+    const tripCreated = check(tripRes, {
+        'trip creation status is 201': (r) => r.status === 201
+    });
+
+    if (!tripCreated) {
+        sleep(Math.random() * 4 + 4);
+        return;
+    }
+
+    let tripId;
+    try {
+        const tripBody = tripRes.json();
+        tripId = tripBody && tripBody.id;
+    } catch (e) {
+        sleep(Math.random() * 4 + 4);
+        return;
+    }
+
+    if (!tripId) {
+        sleep(Math.random() * 4 + 4);
+        return;
+    }
+
     const payload = JSON.stringify({
-        tripId: 1,
+        tripId: tripId,
         title: `Mixed Bench Post ${Date.now()}`,
         content: 'Realistic mixed benchmark trip log content.',
         visibility: 'PUBLIC'
