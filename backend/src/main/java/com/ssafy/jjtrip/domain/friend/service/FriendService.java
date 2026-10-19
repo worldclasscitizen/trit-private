@@ -27,12 +27,6 @@ public class FriendService {
     private final UserMapper userMapper;
     private final NotificationService notificationService;
 
-    @PostConstruct
-    @Transactional
-    public void init() {
-        userMapper.syncAllFriendsCounts();
-    }
-
     @Transactional
     public void sendRequest(Long requesterId, Long receiverId) {
         // 1. 자기 자신에게 요청하는지 검증
