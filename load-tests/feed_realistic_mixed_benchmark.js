@@ -139,8 +139,12 @@ export function feedScrollScenario(data) {
         const success = check(res, {
             'feed scroll status is 200': (r) => r.status === 200,
             'feed scroll has content': (r) => {
-                const body = r.json();
-                return body && Array.isArray(body.content);
+                try {
+                    const body = r.json();
+                    return body && Array.isArray(body.content);
+                } catch (e) {
+                    return false;
+                }
             }
         });
 
@@ -174,8 +178,12 @@ export function likeBurstScenario(data) {
     check(res, {
         'like burst status is 200': (r) => r.status === 200,
         'like burst has like count': (r) => {
-            const body = r.json();
-            return body && typeof body.likeCount === 'number';
+            try {
+                const body = r.json();
+                return body && typeof body.likeCount === 'number';
+            } catch (e) {
+                return false;
+            }
         }
     });
 
@@ -237,8 +245,12 @@ export function heavyInfluencerScenario(data) {
         const success = check(res, {
             'heavy influencer feed is 200': (r) => r.status === 200,
             'heavy influencer feed has content': (r) => {
-                const body = r.json();
-                return body && Array.isArray(body.content);
+                try {
+                    const body = r.json();
+                    return body && Array.isArray(body.content);
+                } catch (e) {
+                    return false;
+                }
             }
         });
 

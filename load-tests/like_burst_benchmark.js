@@ -60,8 +60,12 @@ export default function (data) {
     check(res, {
         'status is 200': (r) => r.status === 200,
         'has like count': (r) => {
-            const body = r.json();
-            return body && typeof body.likeCount === 'number';
+            try {
+                const body = r.json();
+                return body && typeof body.likeCount === 'number';
+            } catch (e) {
+                return false;
+            }
         }
     });
 
