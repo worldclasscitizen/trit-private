@@ -20,7 +20,7 @@ spring:
       connection-timeout: 30000
   elasticsearch:
     uris:
-      - http://localhost:19200
+      - http://${ES_HOST:localhost}:${ES_PORT:9200}
   data:
     redis:
       host: ${REDIS_HOST:localhost}
