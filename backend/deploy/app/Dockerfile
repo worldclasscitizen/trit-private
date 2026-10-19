@@ -1,5 +1,5 @@
 # 1) Build stage
-FROM eclipse-temurin:17-jdk AS builder
+FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 
 # 먼저 의존성 캐시(빌드 빨라짐)
@@ -14,7 +14,7 @@ COPY src src
 RUN ./mvnw -DskipTests package
 
 # 2) Run stage
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
