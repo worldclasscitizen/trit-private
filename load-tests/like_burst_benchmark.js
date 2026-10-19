@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
-const BASE_URL = __ENV.BASE_URL || 'http://localhost:8080';
+const BASE_URL = __ENV.BASE_URL || 'http://127.0.0.1:8080';
 const TARGET_LOG_ID = __ENV.TARGET_LOG_ID || '1';
 
 export const options = {
