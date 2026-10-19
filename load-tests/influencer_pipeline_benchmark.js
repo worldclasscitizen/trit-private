@@ -54,8 +54,12 @@ export default function (data) {
         const success = check(res, {
             'status is 200': (r) => r.status === 200,
             'response has feed content': (r) => {
-                const body = r.json();
-                return body && Array.isArray(body.content);
+                try {
+                    const body = r.json();
+                    return body && Array.isArray(body.content);
+                } catch (e) {
+                    return false;
+                }
             }
         });
 
