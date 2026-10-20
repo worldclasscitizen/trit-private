@@ -65,5 +65,5 @@ file:
   base-url: https://${AWS_BUCKET_NAME:ssafy-jihyun-jinwoo-trip-dev-images}.s3.ap-northeast-2.amazonaws.com
 
 memcached:
-  servers: ${MEMCACHED_SERVERS:memcached:11211}
+  servers: ${MEMCACHED_SERVERS:localhost:21211}
   pool-size: ${MEMCACHED_POOL_SIZE:4}
