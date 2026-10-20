@@ -4,6 +4,13 @@ import { check, sleep } from 'k6';
 const BASE_URL = __ENV.BASE_URL || 'http://127.0.0.1:8080';
 const FEED_TYPE = __ENV.FEED_TYPE || 'hybrid-memcached';
 
+let preloadedTokens = [];
+try {
+    preloadedTokens = JSON.parse(open('./tokens_1500.json'));
+} catch (e) {
+    preloadedTokens = [];
+}
+
 export const options = {
     scenarios: {
         feed_scroll: {
@@ -72,19 +79,22 @@ export const options = {
 };
 
 export function setup() {
-    const tokens = [];
-    const poolSize = 30;
-    for (let i = 1; i <= poolSize; i++) {
-        const loginRes = http.post(
-            `${BASE_URL}/api/auth/login`,
-            JSON.stringify({
-                email: `normal_user_${i}@trit.com`,
-                password: 'password123'
-            }),
-            { headers: { 'Content-Type': 'application/json' } }
-        );
-        if (loginRes.status === 200 && loginRes.json('accessToken')) {
-            tokens.push(loginRes.json('accessToken'));
+    let tokens = preloadedTokens;
+    if (!tokens || tokens.length === 0) {
+        tokens = [];
+        const poolSize = 30;
+        for (let i = 1; i <= poolSize; i++) {
+            const loginRes = http.post(
+                `${BASE_URL}/api/auth/login`,
+                JSON.stringify({
+                    email: `normal_user_${i}@trit.com`,
+                    password: 'password123'
+                }),
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+            if (loginRes.status === 200 && loginRes.json('accessToken')) {
+                tokens.push(loginRes.json('accessToken'));
+            }
         }
     }
 

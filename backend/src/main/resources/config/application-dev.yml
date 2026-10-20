@@ -16,7 +16,7 @@ spring:
     username: ${DB_USER:trit}
     password: ${DB_PASSWORD}
     hikari:
-      maximum-pool-size: 30
+      maximum-pool-size: 50
       minimum-idle: 10
       connection-timeout: 30000
   elasticsearch:

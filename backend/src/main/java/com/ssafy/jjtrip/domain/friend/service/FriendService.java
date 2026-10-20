@@ -16,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import java.util.concurrent.TimeUnit;
 import java.util.List;
 
 @Service
@@ -26,6 +29,10 @@ public class FriendService {
     private final FriendMapper friendMapper;
     private final UserMapper userMapper;
     private final NotificationService notificationService;
+    private final Cache<Long, List<Long>> influencerFriendCache = Caffeine.newBuilder()
+            .maximumSize(10000)
+            .expireAfterWrite(5, TimeUnit.MINUTES)
+            .build();
 
     @Transactional
     public void sendRequest(Long requesterId, Long receiverId) {
@@ -104,6 +111,8 @@ public class FriendService {
 
         // 친구 요청 기록 삭제
         friendMapper.deleteRequestById(requestId);
+        influencerFriendCache.invalidate(friendRequest.getRequesterId());
+        influencerFriendCache.invalidate(friendRequest.getReceiverId());
     }
 
     @Transactional
@@ -139,7 +148,7 @@ public class FriendService {
     }
 
     public List<Long> getInfluencerFriendIds(Long userId, int threshold) {
-        return friendMapper.findInfluencerFriendIds(userId, threshold);
+        return influencerFriendCache.get(userId, key -> friendMapper.findInfluencerFriendIds(key, threshold));
     }
 
     @Transactional
@@ -160,5 +169,7 @@ public class FriendService {
         // 양쪽 유저의 친구 수 감소
         userMapper.decrementFriendsCount(myUserId);
         userMapper.decrementFriendsCount(friendId);
+        influencerFriendCache.invalidate(myUserId);
+        influencerFriendCache.invalidate(friendId);
     }
 }
