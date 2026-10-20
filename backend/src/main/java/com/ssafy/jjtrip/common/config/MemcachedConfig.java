@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MemcachedConfig {
 
-    @Value("${memcached.servers:localhost:11211}")
+    @Value("${memcached.servers:localhost:21211}")
     private String servers;
 
     @Value("${memcached.pool-size:4}")
