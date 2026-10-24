@@ -1,226 +1,340 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="100%" height="100%" style="background:#090d16; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b0f19" />
-      <stop offset="100%" stop-color="#111827" />
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0e1726" />
     </linearGradient>
-    <linearGradient id="springGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e293b" />
-      <stop offset="100%" stop-color="#0f172a" />
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#151f32" />
+      <stop offset="100%" stop-color="#101827" />
     </linearGradient>
-    <linearGradient id="dockerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.15" />
-      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.05" />
+
+    <linearGradient id="dockerTierGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e2238" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0a1524" stop-opacity="0.4" />
     </linearGradient>
-    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+
+    <linearGradient id="appTierGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#112920" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0b1b15" stop-opacity="0.4" />
+    </linearGradient>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
     </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+
+    <marker id="arrowCyan" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#38bdf8" />
     </marker>
-    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981" />
+    <marker id="arrowPurple" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#a855f7" />
     </marker>
-    <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    <marker id="arrowRed" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#f43f5e" />
     </marker>
-    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f43f5e" />
+    <marker id="arrowTeal" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#14b8a6" />
     </marker>
-    <marker id="arrowAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#f59e0b" />
+    <marker id="arrowBlue" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#3b82f6" />
+    </marker>
+    <marker id="arrowAmber" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#f59e0b" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#10b981" />
+    </marker>
+    <marker id="arrowOrange" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#fb923c" />
     </marker>
   </defs>
 
-  <rect width="1200" height="820" fill="url(#bgGrad)" rx="16" />
-  <rect x="2" y="2" width="1196" height="816" fill="none" stroke="#1e293b" stroke-width="2" rx="14" />
+  <rect width="1200" height="750" fill="url(#bgGrad)" />
 
-  <text x="600" y="46" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="22" font-weight="800" fill="#f8fafc" letter-spacing="0.5">TRIT High-Performance Architecture Overview</text>
-  <text x="600" y="70" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="13" font-weight="500" fill="#94a3b8">1.5M Scale Social Feed &amp; Write-Behind Burstable Architecture</text>
-
-  <rect x="40" y="110" width="180" height="420" rx="12" fill="#1e293b" fill-opacity="0.4" stroke="#334155" stroke-dasharray="4 4" />
-  <text x="130" y="136" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#94a3b8">CLIENT TIER</text>
-
-  <g transform="translate(55, 160)" filter="url(#cardShadow)">
-    <rect width="150" height="100" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
-    <circle cx="30" cy="32" r="14" fill="#38bdf8" fill-opacity="0.2" />
-    <path d="M 23 32 L 27 36 L 37 26" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
-    <text x="52" y="32" font-family="sans-serif" font-size="14" font-weight="700" fill="#f1f5f9">Web Client</text>
-    <text x="52" y="47" font-family="sans-serif" font-size="11" fill="#94a3b8">Vue 3 + Vite SPA</text>
-    <rect x="15" y="65" width="120" height="22" rx="4" fill="#0f172a" />
-    <text x="75" y="80" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#38bdf8">TypeScript / Pinia</text>
+  <g transform="translate(40, 24)">
+    <text x="0" y="24" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="1">TRIT SYSTEM ARCHITECTURE</text>
+    <text x="0" y="44" fill="#64748b" font-size="12">High-Performance Travel Life-Log SNS Infrastructure</text>
   </g>
 
-  <g transform="translate(55, 300)" filter="url(#cardShadow)">
-    <rect width="150" height="100" rx="10" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5" />
-    <circle cx="30" cy="32" r="14" fill="#f43f5e" fill-opacity="0.2" />
-    <polygon points="30,22 36,34 24,34" fill="#f43f5e" />
-    <text x="52" y="32" font-family="sans-serif" font-size="14" font-weight="700" fill="#f1f5f9">k6 Load Gen</text>
-    <text x="52" y="47" font-family="sans-serif" font-size="11" fill="#94a3b8">Load Tester</text>
-    <rect x="15" y="65" width="120" height="22" rx="4" fill="#0f172a" />
-    <text x="75" y="80" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f43f5e">1,500 VUs Burst</text>
-  </g>
+  <g transform="translate(40, 85)">
+    <rect width="190" height="625" rx="14" fill="#111827" stroke="#1f2937" stroke-width="1.5" />
+    <rect width="190" height="38" rx="14" fill="#1f2937" />
+    <rect y="24" width="190" height="14" fill="#1f2937" />
+    <text x="95" y="24" fill="#94a3b8" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">CLIENT TIER</text>
 
-  <g transform="translate(55, 430)" filter="url(#cardShadow)">
-    <rect width="150" height="75" rx="8" fill="#0f172a" stroke="#475569" />
-    <text x="75" y="28" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">External Services</text>
-    <text x="75" y="46" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#10b981">OpenAI GPT-4o-mini</text>
-    <text x="75" y="62" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f59e0b">AWS S3 (Images)</text>
-  </g>
-
-  <g transform="translate(260, 110)" filter="url(#cardShadow)">
-    <rect width="360" height="670" rx="14" fill="url(#springGrad)" stroke="#10b981" stroke-width="2" />
-    
-    <rect x="16" y="16" width="328" height="40" rx="8" fill="#10b981" fill-opacity="0.15" />
-    <circle cx="36" cy="36" r="10" fill="#10b981" />
-    <text x="54" y="41" font-family="sans-serif" font-size="16" font-weight="800" fill="#f8fafc">Spring Boot 3.5 Core</text>
-    <text x="260" y="40" font-family="sans-serif" font-size="11" font-weight="600" fill="#10b981">Java 21 LTS</text>
-
-    <g transform="translate(20, 75)">
-      <rect width="320" height="95" rx="8" fill="#1e293b" stroke="#334155" />
-      <text x="14" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">Security &amp; Auth Filter</text>
-      <rect x="235" y="10" width="75" height="18" rx="4" fill="#3b82f6" fill-opacity="0.2" />
-      <text x="272" y="23" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#60a5fa">Stateless</text>
-      <text x="14" y="45" font-family="sans-serif" font-size="11" fill="#94a3b8">Spring Security 6 + JJWT Filter</text>
-      <rect x="14" y="55" width="292" height="28" rx="6" fill="#0f172a" stroke="#475569" stroke-dasharray="2 2" />
-      <text x="24" y="73" font-family="sans-serif" font-size="10" font-weight="600" fill="#38bdf8">In-Memory Token Cache</text>
-      <text x="180" y="73" font-family="sans-serif" font-size="10" fill="#cbd5e1">(TTL 60s / 2,000 Max)</text>
+    <g transform="translate(15, 60)" filter="url(#shadow)">
+      <rect width="160" height="180" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.2" />
+      <g transform="translate(62, 20)">
+        <polygon points="18,0 36,31 29,31 18,12 7,31 0,31" fill="#42b883" />
+        <polygon points="18,12 29,31 22,31 18,24 14,31 7,31" fill="#35495e" />
+      </g>
+      <text x="80" y="80" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle">Web Client</text>
+      <text x="80" y="100" fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle">Vue 3 + TypeScript</text>
+      <rect x="18" y="116" width="124" height="22" rx="11" fill="#0f172a" stroke="#1e293b" />
+      <text x="80" y="131" fill="#94a3b8" font-size="10" text-anchor="middle">Pinia / Vite SPA</text>
+      <rect x="18" y="144" width="124" height="22" rx="11" fill="#0f172a" stroke="#1e293b" />
+      <text x="80" y="159" fill="#94a3b8" font-size="10" text-anchor="middle">Axios Interceptor</text>
     </g>
 
-    <g transform="translate(20, 185)">
-      <rect width="320" height="110" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
-      <rect x="235" y="10" width="75" height="18" rx="4" fill="#10b981" fill-opacity="0.2" />
-      <text x="272" y="23" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#10b981">L1 Cache</text>
-      <text x="14" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#f8fafc">Local In-Memory Cache (Caffeine)</text>
-      <text x="14" y="44" font-family="sans-serif" font-size="11" fill="#94a3b8">Influencer Friend Cache</text>
-      <text x="14" y="60" font-family="sans-serif" font-size="10" fill="#64748b">Algorithm: Window TinyLFU</text>
-      <rect x="14" y="70" width="292" height="28" rx="6" fill="#0f172a" />
-      <text x="24" y="88" font-family="sans-serif" font-size="10" font-weight="600" fill="#34d399">TTL: 5m | Max: 10,000</text>
-      <text x="175" y="88" font-family="sans-serif" font-size="10" fill="#94a3b8">Eliminates 24k DB I/Os</text>
+    <g transform="translate(15, 340)" filter="url(#shadow)">
+      <rect width="160" height="180" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.2" />
+      <g transform="translate(62, 20)">
+        <polygon points="18,2 34,11 34,29 18,38 2,29 2,11" fill="none" stroke="#7d64ff" stroke-width="2.5" />
+        <text x="18" y="26" fill="#7d64ff" font-size="16" font-weight="800" text-anchor="middle">k6</text>
+      </g>
+      <text x="80" y="80" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle">Load Generator</text>
+      <text x="80" y="100" fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle">Grafana k6 Engine</text>
+      <rect x="18" y="116" width="124" height="22" rx="11" fill="#0f172a" stroke="#1e293b" />
+      <text x="80" y="131" fill="#a855f7" font-size="10" font-weight="600" text-anchor="middle">1,500 VUs Peak</text>
+      <rect x="18" y="144" width="124" height="22" rx="11" fill="#0f172a" stroke="#1e293b" />
+      <text x="80" y="159" fill="#94a3b8" font-size="10" text-anchor="middle">Mixed Traffic Test</text>
+    </g>
+  </g>
+
+  <g transform="translate(260, 85)">
+    <rect width="320" height="625" rx="14" fill="url(#appTierGrad)" stroke="#166534" stroke-width="1.5" />
+    <rect width="320" height="42" rx="14" fill="#14532d" />
+    <rect y="28" width="320" height="14" fill="#14532d" />
+    <g transform="translate(16, 12)">
+      <circle cx="10" cy="10" r="9" fill="#22c55e" />
+      <path d="M 6 10 C 6 6, 10 5, 14 6 C 14 10, 13 14, 10 14 C 8 14, 6 12, 6 10 Z" fill="#052e16" />
+    </g>
+    <text x="44" y="26" fill="#f0fdf4" font-size="13" font-weight="700">SPRING BOOT APPLICATION CORE</text>
+    <text x="304" y="26" fill="#86efac" font-size="11" font-weight="600" text-anchor="end">Java 21</text>
+
+    <g transform="translate(16, 58)" filter="url(#shadow)">
+      <rect width="288" height="90" rx="10" fill="url(#cardGrad)" stroke="#22c55e" stroke-width="1" stroke-opacity="0.4" />
+      <g transform="translate(16, 26)">
+        <rect width="36" height="36" rx="8" fill="#052e16" stroke="#22c55e" stroke-width="1" />
+        <path d="M 18 10 L 26 14 L 26 21 C 26 26, 22 29, 18 31 C 14 29, 10 26, 10 21 L 10 14 Z" fill="none" stroke="#4ade80" stroke-width="1.8" />
+      </g>
+      <text x="64" y="38" fill="#f8fafc" font-size="14" font-weight="700">Spring Security &amp; Auth</text>
+      <text x="64" y="56" fill="#86efac" font-size="11">Stateless JWT + In-Memory Token Cache</text>
+      <rect x="64" y="66" width="130" height="18" rx="9" fill="#052e16" />
+      <text x="129" y="79" fill="#4ade80" font-size="9.5" font-weight="600" text-anchor="middle">CPU Signature Guard</text>
     </g>
 
-    <g transform="translate(20, 310)">
-      <rect width="320" height="150" rx="8" fill="#1e293b" stroke="#334155" />
-      <text x="14" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">Core Domain Services</text>
+    <g transform="translate(16, 162)" filter="url(#shadow)">
+      <rect width="288" height="96" rx="10" fill="url(#cardGrad)" stroke="#eab308" stroke-width="1" stroke-opacity="0.4" />
+      <g transform="translate(16, 28)">
+        <rect width="36" height="36" rx="8" fill="#422006" stroke="#eab308" stroke-width="1" />
+        <path d="M 12 16 L 24 16 L 23 26 C 23 28, 21 30, 18 30 C 15 30, 13 28, 13 26 Z" fill="none" stroke="#facc15" stroke-width="1.8" />
+        <path d="M 24 19 C 26 19, 27 20, 27 22 C 27 24, 25 25, 23 25" fill="none" stroke="#facc15" stroke-width="1.5" />
+      </g>
+      <text x="64" y="40" fill="#f8fafc" font-size="14" font-weight="700">Caffeine L1 Local Cache</text>
+      <text x="64" y="58" fill="#fde047" font-size="11">Window TinyLFU / Invalidation Sync</text>
+      <rect x="64" y="68" width="180" height="18" rx="9" fill="#422006" />
+      <text x="154" y="81" fill="#facc15" font-size="9.5" font-weight="600" text-anchor="middle">O(1) Influencer Friend Lookup</text>
+    </g>
+
+    <g transform="translate(16, 272)" filter="url(#shadow)">
+      <rect width="288" height="135" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.4" />
+      <g transform="translate(16, 20)">
+        <rect width="36" height="36" rx="8" fill="#082f49" stroke="#38bdf8" stroke-width="1" />
+        <circle cx="18" cy="18" r="7" fill="none" stroke="#38bdf8" stroke-width="1.8" />
+        <path d="M 18 8 L 18 12 M 18 24 L 18 28 M 8 18 L 12 18 M 24 18 L 28 18" stroke="#38bdf8" stroke-width="2" />
+      </g>
+      <text x="64" y="36" fill="#f8fafc" font-size="14" font-weight="700">Core Business Services</text>
+      <text x="64" y="54" fill="#38bdf8" font-size="11">Feed / TripLog / Social / AI Planner</text>
       
-      <rect x="14" y="36" width="140" height="46" rx="6" fill="#0f172a" />
-      <text x="22" y="54" font-family="sans-serif" font-size="11" font-weight="700" fill="#f1f5f9">TripLogService</text>
-      <text x="22" y="70" font-family="sans-serif" font-size="9" fill="#94a3b8">Hybrid Push/Pull Logic</text>
+      <rect x="18" y="70" width="252" height="24" rx="6" fill="#082f49" stroke="#0284c7" stroke-width="0.8" />
+      <text x="144" y="86" fill="#bae6fd" font-size="10" font-weight="600" text-anchor="middle">Hybrid Feed Dispatcher (Push + Pull)</text>
 
-      <rect x="166" y="36" width="140" height="46" rx="6" fill="#0f172a" />
-      <text x="174" y="54" font-family="sans-serif" font-size="11" font-weight="700" fill="#f1f5f9">TripLogLikeService</text>
-      <text x="174" y="70" font-family="sans-serif" font-size="9" fill="#94a3b8">Write-Behind Scheduler</text>
-
-      <rect x="14" y="90" width="140" height="46" rx="6" fill="#0f172a" />
-      <text x="22" y="108" font-family="sans-serif" font-size="11" font-weight="700" fill="#f1f5f9">FeedCacheService</text>
-      <text x="22" y="124" font-family="sans-serif" font-size="9" fill="#94a3b8">Entity Hydration</text>
-
-      <rect x="166" y="90" width="140" height="46" rx="6" fill="#0f172a" />
-      <text x="174" y="108" font-family="sans-serif" font-size="11" font-weight="700" fill="#f1f5f9">FriendService</text>
-      <text x="174" y="124" font-family="sans-serif" font-size="9" fill="#94a3b8">Cache Invalidation</text>
+      <rect x="18" y="100" width="252" height="24" rx="6" fill="#082f49" stroke="#0284c7" stroke-width="0.8" />
+      <text x="144" y="116" fill="#bae6fd" font-size="10" font-weight="600" text-anchor="middle">Async Write-Behind Scheduled Worker</text>
     </g>
 
-    <g transform="translate(20, 475)">
-      <rect width="320" height="85" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="1.5" />
-      <rect x="235" y="10" width="75" height="18" rx="4" fill="#6366f1" fill-opacity="0.2" />
-      <text x="272" y="23" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#818cf8">Pool: 50</text>
-      <text x="14" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">HikariCP Connection Pool</text>
-      <text x="14" y="44" font-family="sans-serif" font-size="11" fill="#94a3b8">Capacity: max=50, min=10, timeout=30s</text>
-      <rect x="14" y="52" width="292" height="22" rx="4" fill="#0f172a" />
-      <text x="24" y="67" font-family="sans-serif" font-size="10" font-weight="600" fill="#a5b4fc">Connection Acquire Time: 0.65ms Avg</text>
+    <g transform="translate(16, 422)" filter="url(#shadow)">
+      <rect width="288" height="96" rx="10" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.4" />
+      <g transform="translate(16, 28)">
+        <rect width="36" height="36" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1" />
+        <circle cx="13" cy="18" r="4" fill="#60a5fa" />
+        <circle cx="23" cy="14" r="4" fill="#60a5fa" />
+        <circle cx="23" cy="22" r="4" fill="#60a5fa" />
+        <path d="M 13 18 L 23 14 M 13 18 L 23 22" stroke="#60a5fa" stroke-width="1.5" />
+      </g>
+      <text x="64" y="40" fill="#f8fafc" font-size="14" font-weight="700">HikariCP Pool (Size 50)</text>
+      <text x="64" y="58" fill="#93c5fd" font-size="11">High-Concurrency Database Driver</text>
+      <rect x="64" y="68" width="165" height="18" rx="9" fill="#172554" />
+      <text x="146" y="81" fill="#60a5fa" font-size="9.5" font-weight="600" text-anchor="middle">Connection Queue: 0ms</text>
     </g>
 
-    <g transform="translate(20, 575)">
-      <rect width="320" height="75" rx="8" fill="#1e293b" stroke="#334155" />
-      <text x="14" y="24" font-family="sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">Embedded Tomcat Server</text>
-      <text x="14" y="44" font-family="sans-serif" font-size="11" fill="#94a3b8">Max Threads: 500 | Max Connections: 10,000</text>
-      <text x="14" y="60" font-family="sans-serif" font-size="10" fill="#64748b">Port: 8080 | Micrometer Actuator Enabled</text>
+    <g transform="translate(16, 532)" filter="url(#shadow)">
+      <rect width="288" height="74" rx="10" fill="url(#cardGrad)" stroke="#64748b" stroke-width="1" stroke-opacity="0.3" />
+      <text x="20" y="32" fill="#f8fafc" font-size="13" font-weight="700">Spring Boot Actuator</text>
+      <text x="20" y="50" fill="#94a3b8" font-size="11">Prometheus OpenMetrics Exporter</text>
+      <rect x="20" y="56" width="140" height="14" rx="7" fill="#1e293b" />
+      <text x="90" y="66" fill="#cbd5e1" font-size="8.5" text-anchor="middle">JVM &amp; Hikari Metrics</text>
     </g>
   </g>
 
-  <rect x="660" y="110" width="500" height="670" rx="14" fill="url(#dockerGrad)" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="6 6" />
-  
-  <rect x="675" y="125" width="470" height="34" rx="6" fill="#0284c7" fill-opacity="0.2" />
-  <text x="690" y="148" font-family="sans-serif" font-size="14" font-weight="800" fill="#38bdf8">DOCKER CONTAINER NETWORK (Compose)</text>
-  <rect x="1065" y="131" width="70" height="22" rx="4" fill="#0284c7" />
-  <text x="1100" y="146" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="800" fill="#ffffff">DOCKER</text>
-
-  <g transform="translate(680, 175)" filter="url(#cardShadow)">
-    <rect width="460" height="105" rx="10" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5" />
-    <rect x="365" y="10" width="85" height="20" rx="4" fill="#0284c7" />
-    <text x="407" y="24" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="#ffffff">🐳 DOCKER</text>
+  <g transform="translate(615, 85)">
+    <rect width="365" height="625" rx="14" fill="url(#dockerTierGrad)" stroke="#0284c7" stroke-width="1.5" />
+    <rect width="365" height="42" rx="14" fill="#0369a1" />
+    <rect y="28" width="365" height="14" fill="#0369a1" />
     
-    <text x="18" y="28" font-family="sans-serif" font-size="15" font-weight="800" fill="#fb7185">Redis 7.4 (Standalone)</text>
-    <text x="18" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">1) Feed Timelines: Sorted Sets (ZSet)</text>
-    <text x="230" y="48" font-family="sans-serif" font-size="11" fill="#94a3b8">timeline:{userId} (Push)</text>
-    <text x="18" y="68" font-family="sans-serif" font-size="11" fill="#cbd5e1">2) Like Write-Behind: liked_users:{logId}</text>
-    <text x="230" y="68" font-family="sans-serif" font-size="11" fill="#94a3b8">3-second async flush to MySQL</text>
-    <text x="18" y="88" font-family="sans-serif" font-size="11" fill="#cbd5e1">3) Token Blacklist: blacklist:{token}</text>
-    <text x="365" y="88" font-family="sans-serif" font-size="11" font-weight="600" fill="#f43f5e">Port: 6379</text>
+    <g transform="translate(16, 10)">
+      <rect width="24" height="22" rx="4" fill="#0284c7" />
+      <rect x="5" y="4" width="3" height="3" fill="#ffffff" />
+      <rect x="9" y="4" width="3" height="3" fill="#ffffff" />
+      <rect x="13" y="4" width="3" height="3" fill="#ffffff" />
+      <rect x="5" y="8" width="3" height="3" fill="#ffffff" />
+      <rect x="9" y="8" width="3" height="3" fill="#ffffff" />
+      <rect x="13" y="8" width="3" height="3" fill="#ffffff" />
+      <rect x="17" y="8" width="3" height="3" fill="#ffffff" />
+    </g>
+    <text x="48" y="26" fill="#f0f9ff" font-size="13" font-weight="700">DATA &amp; INFRASTRUCTURE (DOCKER)</text>
+
+    <g transform="translate(16, 54)" filter="url(#shadow)">
+      <rect width="333" height="96" rx="10" fill="url(#cardGrad)" stroke="#dc2626" stroke-width="1.2" />
+      <g transform="translate(14, 20)">
+        <polygon points="18,3 34,11 18,19 2,11" fill="#ef4444" />
+        <polygon points="18,13 34,21 18,29 2,21" fill="#dc2626" />
+        <polygon points="18,23 34,31 18,39 2,31" fill="#b91c1c" />
+      </g>
+      <text x="58" y="32" fill="#f8fafc" font-size="15" font-weight="700">Redis 7.4</text>
+      <text x="58" y="50" fill="#fca5a5" font-size="11">Sorted Set (ZSet) Timeline &amp; Like Buffer</text>
+      <text x="58" y="68" fill="#94a3b8" font-size="10.5">Write-Behind Sync / O(1) Timeline Read</text>
+      <rect x="245" y="12" width="76" height="22" rx="6" fill="#0284c7" />
+      <text x="283" y="27" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">🐳 DOCKER</text>
+      <rect x="58" y="74" width="130" height="16" rx="8" fill="#450a0a" />
+      <text x="123" y="86" fill="#f87171" font-size="9" font-weight="600" text-anchor="middle">Port 6379</text>
+    </g>
+
+    <g transform="translate(16, 164)" filter="url(#shadow)">
+      <rect width="333" height="96" rx="10" fill="url(#cardGrad)" stroke="#14b8a6" stroke-width="1.2" />
+      <g transform="translate(14, 22)">
+        <rect width="34" height="34" rx="8" fill="#134e4a" stroke="#14b8a6" stroke-width="1" />
+        <path d="M 8 13 L 17 22 L 26 13 M 8 21 L 17 30 L 26 21" fill="none" stroke="#2dd4bf" stroke-width="2" />
+      </g>
+      <text x="58" y="32" fill="#f8fafc" font-size="15" font-weight="700">Memcached</text>
+      <text x="58" y="50" fill="#5eead4" font-size="11">Post Entity Hydration Cache</text>
+      <text x="58" y="68" fill="#94a3b8" font-size="10.5">Multi-Threaded Binary Protocol (XMemcached)</text>
+      <rect x="245" y="12" width="76" height="22" rx="6" fill="#0284c7" />
+      <text x="283" y="27" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">🐳 DOCKER</text>
+      <rect x="58" y="74" width="130" height="16" rx="8" fill="#042f2e" />
+      <text x="123" y="86" fill="#2dd4bf" font-size="9" font-weight="600" text-anchor="middle">Port 21211</text>
+    </g>
+
+    <g transform="translate(16, 274)" filter="url(#shadow)">
+      <rect width="333" height="96" rx="10" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1.2" />
+      <g transform="translate(14, 22)">
+        <ellipse cx="17" cy="9" rx="15" ry="6" fill="#60a5fa" />
+        <path d="M 2 9 L 2 25 C 2 29, 32 29, 32 25 L 32 9" fill="#1d4ed8" />
+        <ellipse cx="17" cy="17" rx="15" ry="5" fill="none" stroke="#93c5fd" stroke-width="1" />
+        <ellipse cx="17" cy="25" rx="15" ry="5" fill="none" stroke="#93c5fd" stroke-width="1" />
+      </g>
+      <text x="58" y="32" fill="#f8fafc" font-size="15" font-weight="700">MySQL 8.0</text>
+      <text x="58" y="50" fill="#93c5fd" font-size="11">RDBMS Persistent Storage</text>
+      <text x="58" y="68" fill="#94a3b8" font-size="10.5">150만 Dummy Users / No-Offset Paging</text>
+      <rect x="245" y="12" width="76" height="22" rx="6" fill="#0284c7" />
+      <text x="283" y="27" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">🐳 DOCKER</text>
+      <rect x="58" y="74" width="130" height="16" rx="8" fill="#172554" />
+      <text x="123" y="86" fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle">Port 3307</text>
+    </g>
+
+    <g transform="translate(16, 384)" filter="url(#shadow)">
+      <rect width="333" height="96" rx="10" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.2" />
+      <g transform="translate(14, 22)">
+        <rect width="34" height="34" rx="8" fill="#451a03" stroke="#f59e0b" stroke-width="1" />
+        <circle cx="17" cy="17" r="10" fill="none" stroke="#fbbf24" stroke-width="2" />
+        <circle cx="17" cy="17" r="4" fill="#0284c7" />
+      </g>
+      <text x="58" y="32" fill="#f8fafc" font-size="15" font-weight="700">Elasticsearch 8.13</text>
+      <text x="58" y="50" fill="#fde68a" font-size="11">Full-Text Search Engine</text>
+      <text x="58" y="68" fill="#94a3b8" font-size="10.5">N-gram Inverted Index / Place Autocomplete</text>
+      <rect x="245" y="12" width="76" height="22" rx="6" fill="#0284c7" />
+      <text x="283" y="27" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">🐳 DOCKER</text>
+      <rect x="58" y="74" width="130" height="16" rx="8" fill="#451a03" />
+      <text x="123" y="86" fill="#f59e0b" font-size="9" font-weight="600" text-anchor="middle">Port 9200</text>
+    </g>
+
+    <g transform="translate(16, 494)" filter="url(#shadow)">
+      <rect width="333" height="112" rx="10" fill="url(#cardGrad)" stroke="#ea580c" stroke-width="1.2" />
+      <g transform="translate(14, 26)">
+        <circle cx="17" cy="17" r="16" fill="#431407" stroke="#ea580c" stroke-width="1" />
+        <path d="M 17 8 C 17 14, 23 15, 23 21 C 23 25, 20 28, 17 28 C 14 28, 11 25, 11 21 C 11 16, 15 13, 17 8 Z" fill="#fb923c" />
+      </g>
+      <text x="58" y="32" fill="#f8fafc" font-size="15" font-weight="700">Prometheus &amp; Grafana</text>
+      <text x="58" y="50" fill="#fdba74" font-size="11">Real-time Observability Pipeline</text>
+      <text x="58" y="68" fill="#94a3b8" font-size="10.5">5s Actuator Scrape / Hikari &amp; JVM Dashboard</text>
+      <rect x="245" y="12" width="76" height="22" rx="6" fill="#0284c7" />
+      <text x="283" y="27" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">🐳 DOCKER</text>
+      <rect x="58" y="78" width="160" height="18" rx="9" fill="#431407" />
+      <text x="138" y="91" fill="#fb923c" font-size="9.5" font-weight="600" text-anchor="middle">Prometheus:9090 | Grafana:3000</text>
+    </g>
   </g>
 
-  <g transform="translate(680, 295)" filter="url(#cardShadow)">
-    <rect width="460" height="95" rx="10" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5" />
-    <rect x="365" y="10" width="85" height="20" rx="4" fill="#0284c7" />
-    <text x="407" y="24" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="#ffffff">🐳 DOCKER</text>
+  <g transform="translate(1010, 85)">
+    <rect width="150" height="625" rx="14" fill="#111827" stroke="#1f2937" stroke-width="1.5" />
+    <rect width="150" height="38" rx="14" fill="#1f2937" />
+    <rect y="24" width="150" height="14" fill="#1f2937" />
+    <text x="75" y="24" fill="#94a3b8" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">EXTERNAL</text>
 
-    <text x="18" y="28" font-family="sans-serif" font-size="15" font-weight="800" fill="#2dd4bf">Memcached (XMemcached)</text>
-    <text x="18" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">Feed Post Entity Hydration Cache</text>
-    <text x="18" y="66" font-family="sans-serif" font-size="11" fill="#94a3b8">Key: post:entity:{id} | Binary Protocol, Multi-threaded</text>
-    <text x="18" y="84" font-family="sans-serif" font-size="10" font-weight="600" fill="#5eead4">Offloads MySQL Read Load to 0 During Feed Scroll</text>
-    <text x="365" y="84" font-family="sans-serif" font-size="11" font-weight="600" fill="#2dd4bf">Port: 21211</text>
+    <g transform="translate(12, 80)" filter="url(#shadow)">
+      <rect width="126" height="180" rx="10" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.2" />
+      <g transform="translate(45, 20)">
+        <circle cx="18" cy="18" r="16" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+        <path d="M 18 10 L 25 14 L 25 22 L 18 26 L 11 22 L 11 14 Z" fill="none" stroke="#34d399" stroke-width="1.5" />
+      </g>
+      <text x="63" y="80" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle">OpenAI API</text>
+      <text x="63" y="100" fill="#34d399" font-size="11" font-weight="600" text-anchor="middle">GPT-4o-mini</text>
+      <rect x="12" y="116" width="102" height="42" rx="8" fill="#064e3b" stroke="#047857" stroke-width="0.8" />
+      <text x="63" y="132" fill="#a7f3d0" font-size="9.5" text-anchor="middle">AI Course</text>
+      <text x="63" y="146" fill="#a7f3d0" font-size="9.5" text-anchor="middle">Planner</text>
+    </g>
+
+    <g transform="translate(12, 340)" filter="url(#shadow)">
+      <rect width="126" height="180" rx="10" fill="url(#cardGrad)" stroke="#ea580c" stroke-width="1.2" />
+      <g transform="translate(45, 20)">
+        <rect width="36" height="36" rx="8" fill="#431407" stroke="#ea580c" stroke-width="1" />
+        <path d="M 10 14 L 26 14 L 24 28 L 12 28 Z" fill="none" stroke="#fb923c" stroke-width="1.8" />
+        <ellipse cx="18" cy="14" rx="8" ry="3" fill="#ea580c" />
+      </g>
+      <text x="63" y="80" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle">AWS S3</text>
+      <text x="63" y="100" fill="#fb923c" font-size="11" font-weight="600" text-anchor="middle">Object Storage</text>
+      <rect x="12" y="116" width="102" height="42" rx="8" fill="#431407" stroke="#c2410c" stroke-width="0.8" />
+      <text x="63" y="132" fill="#fed7aa" font-size="9.5" text-anchor="middle">Travel Media</text>
+      <text x="63" y="146" fill="#fed7aa" font-size="9.5" text-anchor="middle">&amp; Images</text>
+    </g>
   </g>
 
-  <g transform="translate(680, 405)" filter="url(#cardShadow)">
-    <rect width="460" height="110" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
-    <rect x="365" y="10" width="85" height="20" rx="4" fill="#0284c7" />
-    <text x="407" y="24" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="#ffffff">🐳 DOCKER</text>
+  <g>
+    <path d="M 200 235 L 260 190" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowCyan)" />
+    <rect x="202" y="196" width="60" height="18" rx="4" fill="#082f49" stroke="#0284c7" stroke-width="0.8" />
+    <text x="232" y="209" fill="#7dd3fc" font-size="8.5" font-weight="600" text-anchor="middle">REST (HTTPS)</text>
 
-    <text x="18" y="28" font-family="sans-serif" font-size="15" font-weight="800" fill="#60a5fa">MySQL 8.0 (Primary Storage)</text>
-    <text x="18" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">Database: trit_dev | 1,500,000+ Users &amp; Logs</text>
-    <text x="18" y="66" font-family="sans-serif" font-size="11" fill="#94a3b8">user, user_profile, trip_log, friendship, log_like, log_comment</text>
-    <rect x="18" y="76" width="330" height="22" rx="4" fill="#0f172a" />
-    <text x="26" y="91" font-family="sans-serif" font-size="10" font-weight="600" fill="#93c5fd">Covering Composite Indexes + No-Offset Cursor Pagination</text>
-    <text x="365" y="91" font-family="sans-serif" font-size="11" font-weight="600" fill="#3b82f6">Port: 3307</text>
+    <path d="M 200 515 L 260 210" fill="none" stroke="#a855f7" stroke-width="2" marker-end="url(#arrowPurple)" />
+    <rect x="198" y="352" width="64" height="18" rx="4" fill="#3b0764" stroke="#7e22ce" stroke-width="0.8" />
+    <text x="230" y="365" fill="#d8b4fe" font-size="8.5" font-weight="600" text-anchor="middle">1,500 VUs</text>
+
+    <path d="M 580 375 L 615 190" fill="none" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowRed)" />
+    <rect x="560" y="270" width="70" height="18" rx="4" fill="#4c0519" stroke="#be123c" stroke-width="0.8" />
+    <text x="595" y="283" fill="#fda4af" font-size="8.5" font-weight="600" text-anchor="middle">ZSet / Write-Behind</text>
+
+    <path d="M 580 395 L 615 300" fill="none" stroke="#14b8a6" stroke-width="2" marker-end="url(#arrowTeal)" />
+    <rect x="562" y="336" width="66" height="18" rx="4" fill="#042f2e" stroke="#0f766e" stroke-width="0.8" />
+    <text x="595" y="349" fill="#5eead4" font-size="8.5" font-weight="600" text-anchor="middle">Entity Hydrate</text>
+
+    <path d="M 580 525 L 615 410" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)" />
+    <rect x="564" y="456" width="62" height="18" rx="4" fill="#172554" stroke="#1d4ed8" stroke-width="0.8" />
+    <text x="595" y="469" fill="#93c5fd" font-size="8.5" font-weight="600" text-anchor="middle">JDBC Pool 50</text>
+
+    <path d="M 580 435 L 615 520" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowAmber)" />
+    <rect x="564" y="482" width="62" height="18" rx="4" fill="#451a03" stroke="#b45309" stroke-width="0.8" />
+    <text x="595" y="495" fill="#fde68a" font-size="8.5" font-weight="600" text-anchor="middle">Full-Text ES</text>
+
+    <path d="M 615 650 L 580 650" fill="none" stroke="#fb923c" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrowOrange)" />
+    <rect x="564" y="628" width="62" height="18" rx="4" fill="#431407" stroke="#c2410c" stroke-width="0.8" />
+    <text x="595" y="641" fill="#fdba74" font-size="8.5" font-weight="600" text-anchor="middle">Metrics Scrape</text>
+
+    <path d="M 980 235 L 1010 235" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)" />
+    <rect x="965" y="210" width="58" height="18" rx="4" fill="#064e3b" stroke="#047857" stroke-width="0.8" />
+    <text x="994" y="223" fill="#a7f3d0" font-size="8.5" font-weight="600" text-anchor="middle">Course API</text>
+
+    <path d="M 980 495 L 1010 495" fill="none" stroke="#fb923c" stroke-width="2" marker-end="url(#arrowOrange)" />
+    <rect x="965" y="470" width="58" height="18" rx="4" fill="#431407" stroke="#c2410c" stroke-width="0.8" />
+    <text x="994" y="483" fill="#fed7aa" font-size="8.5" font-weight="600" text-anchor="middle">S3 Upload</text>
   </g>
-
-  <g transform="translate(680, 530)" filter="url(#cardShadow)">
-    <rect width="460" height="85" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
-    <rect x="365" y="10" width="85" height="20" rx="4" fill="#0284c7" />
-    <text x="407" y="24" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="#ffffff">🐳 DOCKER</text>
-
-    <text x="18" y="28" font-family="sans-serif" font-size="15" font-weight="800" fill="#fbbf24">Elasticsearch 8.13</text>
-    <text x="18" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">Full-Text Search Engine: Trip Plans &amp; Tourist Spots</text>
-    <text x="18" y="66" font-family="sans-serif" font-size="10" fill="#94a3b8">N-gram Analyzer / Multi-field Autocomplete Search</text>
-    <text x="365" y="68" font-family="sans-serif" font-size="11" font-weight="600" fill="#f59e0b">Port: 9200</text>
-  </g>
-
-  <g transform="translate(680, 630)" filter="url(#cardShadow)">
-    <rect width="460" height="85" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" />
-    <rect x="365" y="10" width="85" height="20" rx="4" fill="#0284c7" />
-    <text x="407" y="24" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="#ffffff">🐳 DOCKER</text>
-
-    <text x="18" y="28" font-family="sans-serif" font-size="15" font-weight="800" fill="#a78bfa">Observability (Prometheus + Grafana)</text>
-    <text x="18" y="48" font-family="sans-serif" font-size="11" fill="#cbd5e1">Scrapes Spring Actuator OpenMetrics every 5 seconds</text>
-    <text x="18" y="66" font-family="sans-serif" font-size="10" fill="#94a3b8">Real-time HikariCP, JVM GC, Tomcat Threads, CPU Latency Dashboard</text>
-    <text x="345" y="68" font-family="sans-serif" font-size="10" font-weight="600" fill="#c4b5fd">Port: 9090 / 3000</text>
-  </g>
-
-  <path d="M 205 210 L 260 210" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowCyan)" />
-  <path d="M 205 350 L 260 350" fill="none" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowRed)" />
-
-  <path d="M 620 220 L 680 220" fill="none" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowRed)" />
-  <text x="650" y="212" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#fda4af">Push/Like</text>
-
-  <path d="M 620 340 L 680 340" fill="none" stroke="#2dd4bf" stroke-width="2" marker-end="url(#arrowGreen)" />
-  <text x="650" y="332" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#5eead4">Hydration</text>
-
-  <path d="M 620 460 L 680 460" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" />
-  <text x="650" y="452" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#93c5fd">JDBC 50</text>
-
-  <path d="M 620 570 L 680 570" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowAmber)" />
-  <text x="650" y="562" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#fde68a">Search</text>
-
-  <path d="M 620 670 L 680 670" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow)" />
-
 </svg>
