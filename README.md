@@ -178,7 +178,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/5d57cd87-98b1-49a7-89eb-9449e73be47f" width="500px" alt="로그인"/>
+      <img src="./docs/assets/login.webp" width="500px" alt="로그인"/>
     </td>
     <td>
       <img src="./docs/assets/search.webp" width="500px" alt="검색 페이지1"/>
