@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="https://github.com/user-attachments/assets/83909b19-0012-4fc4-877a-0d2e67dd78b0" width="100%" alt="TRIT Main Banner" />
+<img src="./docs/assets/main-feed.webp" width="100%" alt="TRIT Main Banner" />
 
 <br/><br/>
 
-**TRIT**
+<h1>TRIT</h1>
 
 여행을 '찾고–담고–기록하는' 여행 기반 SNS
 
@@ -14,7 +14,7 @@
 
 ---
 
-**서비스 소개**
+<h3>서비스 소개</h3>
 
 TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사람들의 경험을 탐색하며 새로운 장소를 발견할 수 있는 라이프로그 기반 여행 서비스입니다.
 
@@ -22,7 +22,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 
 ---
 
-**주요 기능**
+<h3>주요 기능</h3>
 
 <table>
   <tr>
@@ -35,10 +35,10 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/83909b19-0012-4fc4-877a-0d2e67dd78b0" width="500px" alt="메인 피드"/>
+      <img src="./docs/assets/main-feed.webp" width="500px" alt="메인 피드"/>
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/6a72d2e7-3def-4157-afda-302e9de899e3" width="500px" alt="검색 페이지1"/>
+      <img src="./docs/assets/search.webp" width="500px" alt="검색 페이지1"/>
     </td>
   </tr>
   <tr>
@@ -51,10 +51,10 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/a41919c1-8765-4f85-8846-69a767e27cc5" width="500px" alt="여행 플래너"/>
+      <img src="./docs/assets/ai-planner-1.webp" width="500px" alt="여행 플래너"/>
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/48e72e95-a392-4532-abec-93cfc499dd73" width="500px" alt="로그 작성"/>
+      <img src="./docs/assets/log-write.webp" width="500px" alt="로그 작성"/>
     </td>
   </tr>
 </table>
@@ -82,7 +82,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 
 ---
 
-**서비스 아키텍처**
+<h3>서비스 아키텍처</h3>
 
 <div align="center">
   <img src="./docs/architecture.svg" width="100%" alt="TRIT System Architecture" />
@@ -90,7 +90,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 
 ---
 
-**기술 스택**
+<h3>기술 스택</h3>
 
 **Backend**
 
@@ -100,7 +100,6 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   <img src="https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white" />
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" />
   <img src="https://img.shields.io/badge/MyBatis-000000?style=for-the-badge&logoColor=white" />
-  <img src="https://img.shields.io/badge/Caffeine_Cache-6F4E37?style=for-the-badge&logoColor=white" />
 </p>
 
 **Database &amp; Cache**
@@ -109,6 +108,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   <img src="https://img.shields.io/badge/MySQL_8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
   <img src="https://img.shields.io/badge/Redis_7.4-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
   <img src="https://img.shields.io/badge/Memcached-00D2B4?style=for-the-badge&logoColor=white" />
+  <img src="https://img.shields.io/badge/Caffeine_Cache-6F4E37?style=for-the-badge&logoColor=white" />
   <img src="https://img.shields.io/badge/Elasticsearch_8.13-005571?style=for-the-badge&logo=elasticsearch&logoColor=white" />
 </p>
 
@@ -146,7 +146,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 
 ---
 
-**ERD**
+<h3>ERD</h3>
 
 <details>
 <summary><b>핵심 도메인</b></summary>
@@ -162,7 +162,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 
 ---
 
-**스크린샷**
+<h3>스크린샷</h3>
 
 <details>
 <summary><b>스크린샷 펼쳐보기</b></summary>
@@ -181,7 +181,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
       <img src="https://github.com/user-attachments/assets/5d57cd87-98b1-49a7-89eb-9449e73be47f" width="500px" alt="로그인"/>
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/6a72d2e7-3def-4157-afda-302e9de899e3" width="500px" alt="검색 페이지1"/>
+      <img src="./docs/assets/search.webp" width="500px" alt="검색 페이지1"/>
     </td>
   </tr>
   <tr>
@@ -194,10 +194,10 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/83909b19-0012-4fc4-877a-0d2e67dd78b0" width="500px" alt="메인 피드"/>
+      <img src="./docs/assets/main-feed.webp" width="500px" alt="메인 피드"/>
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/05cfabf4-5a8f-4346-931c-577da0ca236b" width="500px" alt="여행 스크랩"/>
+      <img src="./docs/assets/scrap.webp" width="500px" alt="여행 스크랩"/>
     </td>
   </tr>
   <tr>
@@ -210,10 +210,10 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/a41919c1-8765-4f85-8846-69a767e27cc5" width="500px" alt="여행 계획1"/>
+      <img src="./docs/assets/ai-planner-1.webp" width="500px" alt="여행 계획1"/>
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/2baef092-9116-428b-b6b5-4619142c4423" width="500px" alt="여행 계획2"/>
+      <img src="./docs/assets/ai-planner-2.webp" width="500px" alt="여행 계획2"/>
     </td>
   </tr>
   <tr>
@@ -226,10 +226,10 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/48e72e95-a392-4532-abec-93cfc499dd73" width="500px" alt="로그 작성"/>
+      <img src="./docs/assets/log-write.webp" width="500px" alt="로그 작성"/>
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/f07d0206-418d-4d27-8bb6-67708c33265d" width="500px" alt="마이 페이지"/>
+      <img src="./docs/assets/mypage.webp" width="500px" alt="마이 페이지"/>
     </td>
   </tr>
   <tr>
@@ -239,7 +239,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/user-attachments/assets/d24c24f7-b39d-4249-8eba-855599cc9d9a" width="500px" alt="알림 및 친구 요청"/>
+      <img src="./docs/assets/notification.webp" width="500px" alt="알림 및 친구 요청"/>
     </td>
   </tr>
 </table>
@@ -247,7 +247,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 
 ---
 
-**로컬 실행 가이드**
+<h3>로컬 실행 가이드</h3>
 
 * **1. 인프라 컨테이너 실행 (Docker Compose)**
 ```bash
@@ -270,7 +270,7 @@ npm run dev
 
 ---
 
-**팀원**
+<h3>팀원</h3>
 
 <div align="center">
 
