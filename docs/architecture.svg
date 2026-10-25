@@ -16,8 +16,8 @@
 
   <rect x="1" y="1" width="1158" height="698" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
 
-  <rect x="765" y="28" width="365" height="438" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4" />
-  <text x="785" y="52" fill="#334155" font-size="13" font-weight="700">Data · Cache · Search</text>
+  <rect x="765" y="24" width="365" height="442" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4" />
+  <text x="785" y="48" fill="#334155" font-size="13" font-weight="700">Data · Cache · Search</text>
 
   <rect x="410" y="492" width="300" height="180" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4" />
   <text x="428" y="516" fill="#334155" font-size="13" font-weight="700">Monitoring</text>
@@ -25,14 +25,14 @@
   <rect x="765" y="492" width="365" height="180" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4" />
   <text x="785" y="516" fill="#334155" font-size="13" font-weight="700">External Services</text>
 
-  <g transform="translate(36, 232)">
+  <g transform="translate(36, 196)">
     <rect x="16" y="6" width="56" height="56" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
     <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiMzMzQxNTUiIGQ9Ik0xNy43NTUgMTRhMi4yNSAyLjI1IDAgMCAxIDIuMjQ4IDIuMjV2LjkxOGEyLjc1IDIuNzUgMCAwIDEtLjUxMiAxLjU5OGMtMS41NDYgMi4xNjQtNC4wNyAzLjIzNS03LjQ5IDMuMjM1Yy0zLjQyMiAwLTUuOTQ1LTEuMDcyLTcuNDg3LTMuMjM2YTIuNzUgMi43NSAwIDAgMS0uNTEtMS41OTZ2LS45MkEyLjI1IDIuMjUgMCAwIDEgNi4yNTMgMTR6TTEyIDIuMDA1YTUgNSAwIDEgMSAwIDEwYTUgNSAwIDAgMSAwLTEwIi8+PC9zdmc+" x="24" y="14" width="40" height="40" />
     <text x="44" y="82" fill="#0f172a" font-size="14" font-weight="700" text-anchor="middle">User</text>
     <text x="44" y="100" fill="#64748b" font-size="11.5" font-weight="700" text-anchor="middle">Web Browser</text>
   </g>
 
-  <g transform="translate(172, 206)" filter="url(#boxShadow)">
+  <g transform="translate(172, 170)" filter="url(#boxShadow)">
     <rect width="206" height="156" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.6" />
     <text x="103" y="32" fill="#0f172a" font-size="16" font-weight="700" text-anchor="middle">Frontend</text>
     <text x="103" y="52" fill="#475569" font-size="12" font-weight="700" text-anchor="middle">SPA 웹 클라이언트</text>
@@ -53,13 +53,7 @@
     </g>
   </g>
 
-  <g transform="translate(465, 42)">
-    <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxnIGZpbGw9Im5vbmUiPjxwYXRoIGZpbGw9IiNkM2QzZDMiIGQ9Ik0xNC41IDMwQzIwLjg1MSAzMCAyNiAyNC44NTEgMjYgMTguNVMyMC44NTEgNyAxNC41IDdTMyAxMi4xNDkgMyAxOC41UzguMTQ5IDMwIDE0LjUgMzAiLz48cGF0aCBmaWxsPSIjOWI5YjliIiBkPSJNMTQuNDIgMjcuNWMtNS4xNyAwLTkuMzgtNC43LTkuMzgtOS44N0gyMy44YzAgNS4xNy00LjIxIDkuODctOS4zOCA5Ljg3Ii8+PHBhdGggZmlsbD0iI2U2ZTZlNiIgZD0iTTIxLjQgMTIuMzhhOS4zNSA5LjM1IDAgMCAwLTYuOTgtMy4xM2E5LjM3IDkuMzcgMCAwIDAtNi45OSAzLjEzSDUuMDR2NS4yNWMwIDUuMTcgNC4yMSA5LjM4IDkuMzggOS4zOGM0LjM3OCAwIDguMDY4LTMuMDE5IDkuMDk1LTcuMDgzbDEuMDYtMS4wNHMtLjc4OC0uNjUyLS43NzktLjk5NnEuMDA0LS4xMy4wMDQtLjI2MXYtNS4yNXoiLz48cGF0aCBmaWxsPSIjZjRmNGY0IiBkPSJNMjMuNzkgMTIuMzhhOS4zOCA5LjM4IDAgMSAxLTEuMDgtNC4zNzJRMjIuODY1IDggMjMuMDIgOGMzLjMgMCA1Ljk4IDIuNjggNS45OCA1Ljk4YTUuOTg0IDUuOTg0IDAgMCAxLTUuNDg4IDUuOTZhOS40IDkuNCAwIDAgMCAuMjg1LTIuMDU2QTMuOTk0IDMuOTk0IDAgMCAwIDI3IDEzLjk4YzAtMi4wMy0xLjUzLTMuNzE4LTMuNTA3LTMuOTUyYy4xOTQuNzUyLjI5NyAxLjU0LjI5NyAyLjM1MiIvPjxwYXRoIGZpbGw9IiM3ZDQ1MzMiIGQ9Ik0xNC40MSAyMC42N2E4LjI5IDguMjkgMCAwIDAgOC4yOS04LjI5YzAtNC41NzgtNS4wMzUtNy4yOS04LjI5LTcuMjljLTIuNzg2IDAtOC4yOSAyLjcxMi04LjI5IDcuMjlhOC4yOSA4LjI5IDAgMCAwIDguMjkgOC4yOSIvPjxwYXRoIGZpbGw9IiM5YjliOWIiIGQ9Ik02LjE0IDEyLjk2NmMuMzAxLTMuMSAzLjg4OS02Ljg3NiA4LjI3LTYuODc2YzQuMzggMCA3Ljk2NyAzLjgyNyA4LjI3IDYuODhxLjAyLS4yOTMuMDItLjU5YTguMjkgOC4yOSAwIDEgMC0xNi41Ni41ODYiLz48L2c+PC9zdmc+" x="6" y="12" width="48" height="48" />
-    <text x="66" y="33" fill="#0f172a" font-size="15" font-weight="700">Caffeine Cache</text>
-    <text x="66" y="53" fill="#475569" font-size="12" font-weight="700">인플루언서 로컬 캐시</text>
-  </g>
-
-  <g transform="translate(452, 206)" filter="url(#boxShadow)">
+  <g transform="translate(452, 170)" filter="url(#boxShadow)">
     <rect width="216" height="156" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.6" />
     <text x="108" y="32" fill="#0f172a" font-size="16" font-weight="700" text-anchor="middle">Spring Boot</text>
     <text x="108" y="52" fill="#475569" font-size="12" font-weight="700" text-anchor="middle">백엔드 API 서버</text>
@@ -83,7 +77,7 @@
     </g>
   </g>
 
-  <g transform="translate(875, 76)">
+  <g transform="translate(875, 64)">
     <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMDA2MThBIiBkPSJNMTE3LjY4OCA5OC4yNDJjLTYuOTczLS4xOTEtMTIuMjk3LjQ2MS0xNi44NTIgMi4zNzktMS4yOTMuNTQ3LTMuMzU1LjU1OS0zLjU2NiAyLjE4LjcxMS43NDYuODIgMS44NTkgMS4zODcgMi43NzcgMS4wODYgMS43NTQgMi45MjIgNC4xMTMgNC41NTkgNS4zNTIgMS43ODkgMS4zNDggMy42MzMgMi43OTMgNS41NTEgMy45NjEgMy40MTQgMi4wODIgNy4yMjMgMy4yNyAxMC41MDQgNS4zNTIgMS45MzggMS4yMyAzLjg1OSAyLjc3NyA1Ljc1IDQuMTY0LjkzNC42ODQgMS41NjMgMS43NSAyLjc3MyAyLjE4di0uMTk1Yy0uNjM3LS44MTItLjgwMS0xLjkzLTEuMzg3LTIuNzc3bC0yLjU3OC0yLjU3OGMtMi41Mi0zLjM0NC01LjcxOS02LjI4MS05LjExNy04LjcxOS0yLjcxMS0xLjk0OS04Ljc4MS00LjU3OC05LjkxLTcuNzNsLS4xOTktLjE5OWMxLjkyMi0uMjE5IDQuMTcyLS45MTQgNS45NDktMS4zOTEgMi45OC0uNzk3IDUuNjQ1LS41OSA4LjcxOS0xLjM4N2w0LjE2NC0xLjE4N3YtLjc5M2MtMS41NTUtMS41OTQtMi42NjQtMy43MDctNC4zNTktNS4xNTItNC40NDEtMy43ODEtOS4yODUtNy41NTUtMTQuMjczLTEwLjcwMy0yLjc2Ni0xLjc0Ni02LjE4NC0yLjg4My05LjExNy00LjM2My0uOTg4LS40OTYtMi43MTktLjc1OC0zLjM3MS0xLjU4Ni0xLjUzOS0xLjk2MS0yLjM3OS00LjQ0OS0zLjU2Ni02LjczOC0yLjQ4OC00Ljc5My00LjkzLTEwLjAyMy03LjEzNy0xNS4wNjYtMS41MDQtMy40MzctMi40ODQtNi44MjgtNC4zNTktOS45MS05LTE0Ljc5Ny0xOC42ODctMjMuNzMtMzMuNjk1LTMyLjUwOC0zLjE5NS0xLjg2Ny03LjAzOS0yLjYwNS0xMS4xMDItMy41N2wtNi41NDMtLjM5NWMtMS4zMzItLjU1NS0yLjcxNS0yLjE4NC0zLjk2NS0yLjk3N0MxNi45NzcgMy41MiA0LjIyMy0zLjMxMi41MzkgNS42NzItMS43ODUgMTEuMzQgNC4wMTYgMTYuODcxIDYuMDkgMTkuNzQ2YzEuNDU3IDIuMDEyIDMuMzIgNC4yNzMgNC4zNTkgNi41MzkuNjg4IDEuNDkyLjgwNSAyLjk4NCAxLjM5MSA0LjU1OSAxLjQzOCAzLjg4MyAyLjY5NSA4LjEwOSA0LjU1OSAxMS42OTUuOTQxIDEuODE2IDEuOTggMy43MjcgMy4xNzIgNS4zNTIuNzI3Ljk5NiAxLjk4IDEuNDM4IDIuMTggMi45NzMtMS4yMjcgMS43MTUtMS4yOTcgNC4zNzUtMS45ODQgNi41NDMtMy4wOTggOS43Ny0xLjkyNiAyMS45MSAyLjU3OCAyOS4xMzcgMS4zODMgMi4yMjMgNC42NDEgNi45OCA5LjExNyA1LjE1NiAzLjkxOC0xLjU5OCAzLjA0My02LjUzOSA0LjE2NC0xMC45MDIuMjU0LS45ODguMDk4LTEuNzE1LjU5NC0yLjM3OXYuMTk5bDMuNTcgNy4xMzNjMi42NDEgNC4yNTQgNy4zMjQgOC42OTkgMTEuMjk3IDExLjY5OSAyLjA1OSAxLjU1NSAzLjY4IDQuMjQyIDYuMzQ0IDUuMTUydi0uMTk5aC0uMTk5Yy0uNTE2LS44MDUtMS4zMjQtMS4xMzctMS45OC0xLjc4MS0xLjU1MS0xLjUyMy0zLjI3Ny0zLjQxNC00LjU1OS01LjE1Ni0zLjYxMy00LjkwMi02LjgwNS0xMC4yNy05LjcxMS0xNS44NTUtMS4zOTEtMi42NjgtMi41OTgtNS42MDktMy43Ny04LjMyNC0uNDUzLTEuMDQ3LS40NDUtMi42MzMtMS4zODctMy4xNzItMS4yODEgMS45ODgtMy4xNzIgMy41OTgtNC4xNjQgNS45NDUtMS41ODIgMy43NTQtMS43ODkgOC4zMzYtMi4zNzUgMTMuMDgyLS4zNDguMTI1LS4xOTUuMDM5LS4zOTguMTk5LTIuNzYyLS42NjgtMy43My0zLjUwOC00Ljc1OC01Ljk0OS0yLjU5NC02LjE2NC0zLjA3OC0xNi4wOS0uNzkzLTIzLjE5MS41OS0xLjgzNiAzLjI2Mi03LjYxNyAyLjE4LTkuMzE2LS41MTYtMS42OTEtMi4yMTktMi42NzItMy4xNzItMy45NjUtMS4xOC0xLjU5OC0yLjM1NS0zLjcwMy0zLjE3Mi01LjU1MS0yLjEyNS00LjgwNS0zLjExMy0xMC4yMDMtNS4zNTItMTUuMDYyLTEuMDctMi4zMjQtMi44NzUtNC42NzYtNC4zNTktNi43MzgtMS42NDUtMi4yODktMy40ODQtMy45NzctNC43NTgtNi43NDItLjQ1My0uOTg0LTEuMDY2LTIuNTU5LS4zOTgtMy41NjYuMjE1LS42ODQuNTE2LS45NjkgMS4xOTEtMS4xOTEgMS4xNDgtLjg4NyA0LjM1Mi4yOTcgNS41NDcuNzkzIDMuMTggMS4zMiA1LjgzMiAyLjU3OCA4LjUyNyA0LjM2MyAxLjI4OS44NTUgMi41OTggMi41MTIgNC4xNiAyLjk3M2gxLjc4NWMyLjc4OS42NDEgNS45MTQuMTk1IDguNTIzLjk4OCA0LjYwOSAxLjQwMiA4LjczOCAzLjU4MiAxMi40ODggNS45NDkgMTEuNDIyIDcuMjE1IDIwLjc2NiAxNy40OCAyNy4xNTYgMjkuNzM0IDEuMDI3IDEuOTczIDEuNDczIDMuODUyIDIuMzc5IDUuOTQ1IDEuODI0IDQuMjE5IDQuMTI1IDguNTU5IDUuOTQxIDEyLjY4OCAxLjgxNiA0LjExMyAzLjU4MiA4LjI3IDYuMTQ4IDExLjY5NSAxLjM0OCAxLjgwMSA2LjU1MSAyLjc2NiA4LjkxOCAzLjc2NiAxLjY2LjY5OSA0LjM3OSAxLjQzIDUuOTQ5IDIuMzc5IDMgMS44MDkgNS45MDYgMy45NjUgOC43MjMgNS45NDUgMS40MDIuOTkyIDUuNzMgMy4xNjggNS45NDUgNC45NTd6bS04OC42MDUtNzUuNTJjLTEuNDUzLS4wMjctMi40OC4xNTYtMy41NjYuMzk1di4xOTloLjE5NWMuNjk1IDEuNDIyIDEuOTE4IDIuMzQgMi43NzcgMy41NjZsMS45OCA0LjE2NC4xOTktLjE5NWMxLjIyNy0uODY3IDEuNzg5LTIuMjUgMS43ODEtNC4zNjMtLjQ5Mi0uNTItLjU2Mi0xLjE2NC0uOTkyLTEuNzg1LS41NjItLjgyNC0xLjY2LTEuMjg5LTIuMzc1LTEuOTh6bTAgMCIvPjwvc3ZnPgo=" x="0" y="4" width="48" height="48" />
     
   <g transform="translate(48, 4)" filter="url(#badgeShadow)">
@@ -94,7 +88,7 @@
     <text x="72" y="46" fill="#475569" font-size="12" font-weight="700">영구 데이터 저장</text>
   </g>
 
-  <g transform="translate(875, 174)">
+  <g transform="translate(875, 142)">
     <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjQTQxRTExIiBkPSJNMTIxLjggOTMuMWMtNi43IDMuNS00MS40IDE3LjctNDguOCAyMS42LTcuNCAzLjktMTEuNSAzLjgtMTcuMyAxUzEzIDk4LjEgNi4zIDk0LjljLTMuMy0xLjYtNS0yLjktNS00LjJWNzhzNDgtMTAuNSA1NS44LTEzLjJjNy44LTIuOCAxMC40LTIuOSAxNy0uNXM0Ni4xIDkuNSA1Mi42IDExLjl2MTIuNWMwIDEuMy0xLjUgMi43LTQuOSA0LjR6Ii8+PHBhdGggZmlsbD0iI0Q4MkMyMCIgZD0iTTEyMS44IDgwLjVDMTE1LjEgODQgODAuNCA5OC4yIDczIDEwMi4xYy03LjQgMy45LTExLjUgMy44LTE3LjMgMS01LjgtMi44LTQyLjctMTcuNy00OS40LTIwLjlDLS4zIDc5LS41IDc2LjggNiA3NC4zYzYuNS0yLjYgNDMuMi0xNyA1MS0xOS43IDcuOC0yLjggMTAuNC0yLjkgMTctLjVzNDEuMSAxNi4xIDQ3LjYgMTguNWM2LjcgMi40IDYuOSA0LjQuMiA3Ljl6Ii8+PHBhdGggZmlsbD0iI0E0MUUxMSIgZD0iTTEyMS44IDcyLjVDMTE1LjEgNzYgODAuNCA5MC4yIDczIDk0LjFjLTcuNCAzLjgtMTEuNSAzLjgtMTcuMyAxQzQ5LjkgOTIuMyAxMyA3Ny40IDYuMyA3NC4yYy0zLjMtMS42LTUtMi45LTUtNC4yVjU3LjNzNDgtMTAuNSA1NS44LTEzLjJjNy44LTIuOCAxMC40LTIuOSAxNy0uNXM0Ni4xIDkuNSA1Mi42IDExLjlWNjhjMCAxLjMtMS41IDIuNy00LjkgNC41eiIvPjxwYXRoIGZpbGw9IiNEODJDMjAiIGQ9Ik0xMjEuOCA1OS44Yy02LjcgMy41LTQxLjQgMTcuNy00OC44IDIxLjYtNy40IDMuOC0xMS41IDMuOC0xNy4zIDFDNDkuOSA3OS42IDEzIDY0LjcgNi4zIDYxLjVzLTYuOC01LjQtLjMtNy45YzYuNS0yLjYgNDMuMi0xNyA1MS0xOS43IDcuOC0yLjggMTAuNC0yLjkgMTctLjVzNDEuMSAxNi4xIDQ3LjYgMTguNWM2LjcgMi40IDYuOSA0LjQuMiA3Ljl6Ii8+PHBhdGggZmlsbD0iI0E0MUUxMSIgZD0iTTEyMS44IDUxYy02LjcgMy41LTQxLjQgMTcuNy00OC44IDIxLjYtNy40IDMuOC0xMS41IDMuOC0xNy4zIDFDNDkuOSA3MC45IDEzIDU2IDYuMyA1Mi44Yy0zLjMtMS42LTUuMS0yLjktNS4xLTQuMlYzNS45czQ4LTEwLjUgNTUuOC0xMy4yYzcuOC0yLjggMTAuNC0yLjkgMTctLjVzNDYuMSA5LjUgNTIuNiAxMS45djEyLjVjLjEgMS4zLTEuNCAyLjYtNC44IDQuNHoiLz48cGF0aCBmaWxsPSIjRDgyQzIwIiBkPSJNMTIxLjggMzguM0MxMTUuMSA0MS44IDgwLjQgNTYgNzMgNTkuOWMtNy40IDMuOC0xMS41IDMuOC0xNy4zIDFTMTMgNDMuMyA2LjMgNDAuMXMtNi44LTUuNC0uMy03LjljNi41LTIuNiA0My4yLTE3IDUxLTE5LjcgNy44LTIuOCAxMC40LTIuOSAxNy0uNXM0MS4xIDE2LjEgNDcuNiAxOC41YzYuNyAyLjQgNi45IDQuNC4yIDcuOHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNODAuNCAyNi4xbC0xMC44IDEuMi0yLjUgNS44LTMuOS02LjUtMTIuNS0xLjEgOS4zLTMuNC0yLjgtNS4yIDguOCAzLjQgOC4yLTIuN0w3MiAyM3pNNjYuNSA1NC41bC0yMC4zLTguNCAyOS4xLTQuNHoiLz48ZWxsaXBzZSBmaWxsPSIjZmZmIiBjeD0iMzguNCIgY3k9IjM1LjQiIHJ4PSIxNS41IiByeT0iNiIvPjxwYXRoIGZpbGw9IiM3QTBDMDAiIGQ9Ik05My4zIDI3LjdsMTcuMiA2LjgtMTcuMiA2Ljh6Ii8+PHBhdGggZmlsbD0iI0FEMjExNSIgZD0iTTc0LjMgMzUuM2wxOS03LjZ2MTMuNmwtMS45Ljh6Ii8+PC9zdmc+" x="0" y="4" width="48" height="48" />
     
   <g transform="translate(48, 4)" filter="url(#badgeShadow)">
@@ -105,7 +99,7 @@
     <text x="72" y="46" fill="#475569" font-size="12" font-weight="700">타임라인 · 좋아요 캐시</text>
   </g>
 
-  <g transform="translate(875, 272)">
+  <g transform="translate(875, 220)">
     <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTI4IDEyOCI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJmIiBjeD0iNjIuNDE3IiBjeT0iMTQyLjkyMyIgcj0iOS4yMTMiIGZ4PSI2Mi40MTciIGZ5PSIxNDIuOTIzIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KC41MDUyMyAwIDAgLjUwNTIxIDIzLjE0MyAyMy44MDUpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZGI3YzdjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYzgzNzM3Ii8+PC9yYWRpYWxHcmFkaWVudD48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI5Ni43MjYiIGN5PSIxNDIuOTIzIiByPSI5LjIxMyIgZng9Ijk2LjcyNiIgZnk9IjE0Mi45MjMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoLjUwNTIzIDAgMCAuNTA1MjEgMjMuMTQzIDIzLjgwNSkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkYjdjN2MiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjODM3MzciLz48L3JhZGlhbEdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZCIgeDE9IjI1NS44OTQiIHgyPSIyNTUuODk0IiB5MT0iNTkuNzg5IiB5Mj0iLTQ1MiIgZ3JhZGllbnRUcmFuc2Zvcm09InRyYW5zbGF0ZSgwIDExMy4wNDcpc2NhbGUoLjI1MDExKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzU3NGM0YSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzgwNzE2ZCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJlIiB4MT0iMzgwLjQ0MiIgeDI9IjE5MS45NzEiIHkxPSItNTEuNzU4IiB5Mj0iLTM4Mi4zMDUiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMTMuMDQ3KXNjYWxlKC4yNTAxMSkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMyNjhkODMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyZWExOWUiLz48L2xpbmVhckdyYWRpZW50PjxjbGlwUGF0aCBpZD0iYiI+PHBhdGggZD0iTTAgMGgxMjh2MTI4SDB6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9ImMiPjxwYXRoIGQ9Ik0wIDBoMTI4djEyOEgweiIvPjwvY2xpcFBhdGg+PG1hc2sgaWQ9ImkiPjxnIGZpbHRlcj0idXJsKCNhKSI+PHBhdGggZmlsbC1vcGFjaXR5PSIuMTAyIiBkPSJNMCAwaDEyOHYxMjhIMHoiLz48L2c+PC9tYXNrPjxtYXNrIGlkPSJrIj48ZyBmaWx0ZXI9InVybCgjYSkiPjxwYXRoIGZpbGwtb3BhY2l0eT0iLjMwMiIgZD0iTTAgMGgxMjh2MTI4SDB6Ii8+PC9nPjwvbWFzaz48ZyBpZD0iaCIgY2xpcC1wYXRoPSJ1cmwoI2IpIj48cGF0aCBkPSJNOTkuNDU3IDI1LjQ1M2MyLjg0IDE5LjIxMSAzLjUgMzcuNjQ5IDMuNDUzIDUxLjM4My0uMDU1IDE0LjA0Ny0uODYgMjMuMTc2LS44NiAyMy4xNzZIODUuNDkzbC0xLjc3NyAxLjMzMmgxOS42NjhzMy4yOTMtMzcuMzMyLTMtNzcuMjA3Wm0tNTIuMTEzLS40ODRjNS4xNjQgNS43NDYgMTQuMTA1IDIxIDE1LjMyOCAyMS0zLjI3NC00LjE4OC0xMS4zMi0xNy41NTUtMTUuMzI4LTIxbS03LjM3NSAxOS40NTdjLTUuNTg2LjE1MiAxLjEyOSA0NS42MjkgMyA1NS41ODZIMjUuOGwtMS4xNjQgMS4zMzJINDQuM2MtMS44Ni05LjkwMy04LjUxNi01NC45NzctMy4wODItNTUuNTgyLS41MDQtLjc2Mi0uOTQ2LTEuMjg1LTEuMjUtMS4zMzZabTQ1LjQxOCAwYy0yLjk5Mi40NzYtMTYuNjY0IDM4LjU4Ni0xNi42NjQgMzguNTg2cy0zLjAxMi0uMzc1LTYuMDQzLS4zNzVjLTEuNzkzIDAtMy4zMzYuMTEtNC4zOC4yMDdsLS4zMjMgMS41czMuMDA3LS4zNzUgNi4wMzktLjM3NWMzLjAzIDAgNi4wNDMuMzc1IDYuMDQzLjM3NXMxMy41Ny0zNy44NiAxNi42MjUtMzguNTgyYy0uMzI5LS44MzYtLjczNS0xLjMyLTEuMjkzLTEuMzM2Wm0wIDAiLz48L2c+PGcgaWQ9ImoiIGNsaXAtcGF0aD0idXJsKCNjKSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTI3LjYzNyAyNC4xMzdjLTYuMjkzIDM5Ljg3NS0zLjAwNCA3Ny4yMDctMy4wMDQgNzcuMjA3bDEuMTYtMS4zMDVjLS41OTQtOC44MDktMi4xNzYtNDAuNjYgMy4xNzYtNzQuNTdoMTguMjA3Yy4zODMuMDA0Ljg5OC4zMTYgMS41LjgzMi0xLjE5Mi0xLjMyOC0yLjE4NC0yLjE2LTIuODMyLTIuMTY4Wm01NC41NDMgMEM3OC43MSAyNC4xNzYgNjUuNTI3IDQ3LjMgNjQuMDEyIDQ3LjNjLjYxNy43OTMgMS4xMiAxLjMzNiAxLjMzMiAxLjMzNiAxLjUxNSAwIDE0LjcwMy0yMy4xMjUgMTguMTY4LTIzLjE2NGgxNi4wN2wuODA1LTEuMzM2Wk00Mi41NTUgNDcuMDk0YzQuNDIyIDYuNjQ0IDE1LjQxNCAzNy4yNSAxNS40MTQgMzcuMjVsLjMyNC0xLjQ5MmMtMi43MTUtNy40NDItMTMuMDU5LTM1LjM0NC0xNS42NTYtMzUuNzU4LS4wMjggMC0uMDU1LS4wMDQtLjA4MiAwbTQ1LjUgMGMyLjk2NSA3LjU2Ni0yLjY1MyA0NS4yOTMtNC4zMzYgNTQuMjQ2bDEuNzg1LTEuMzljMi4yODEtMTMuMzYgNy43NjItNTIuNzIgMi41NS01Mi44NTZabTAgMCIvPjwvZz48ZmlsdGVyIGlkPSJhIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4PSIwIiB5PSIwIiBmaWx0ZXJVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giPjxmZUNvbG9yTWF0cml4IGluPSJTb3VyY2VHcmFwaGljIiB2YWx1ZXM9IjAgMCAwIDAgMSAwIDAgMCAwIDEgMCAwIDAgMCAxIDAgMCAwIDEgMCIvPjwvZmlsdGVyPjwvZGVmcz48cGF0aCBmaWxsPSJ1cmwoI2QpIiBkPSJNMCA4Ni40ODhWNDEuNTEyQzAgNS4xODcgNS4xODQgMCA0MS40NzQgMGg0NS4wNkMxMjIuODIgMCAxMjggNS4xODggMTI4IDQxLjUxMnY0NC45NzZDMTI4IDEyMi44MTMgMTIyLjgxNiAxMjggODYuNTMgMTI4SDQxLjQ3QzUuMTg0IDEyOCAwIDEyMi44MTIgMCA4Ni40ODhtMCAwIi8+PHBhdGggZmlsbD0idXJsKCNlKSIgZD0iTTI3LjYzNCAyNC4xMzdjLTYuMjkgMzkuODc1LTMgNzcuMjA3LTMgNzcuMjA3aDE5LjY2OGMtMS44NzEtOS45NTctOC41ODYtNTUuNDM0LTMtNTUuNTg2IDIuOTkyLjQ3NiAxNi42NjkgMzguNTg2IDE2LjY2OSAzOC41ODZzMy4wMTEtLjM4IDYuMDM5LS4zOGMzLjAzMSAwIDYuMDQzLjM4IDYuMDQzLjM4czEzLjY3Ni0zOC4xMSAxNi42NjgtMzguNTg2YzUuNTg3LjE1Mi0xLjEyOSA0NS42MjktMi45OTYgNTUuNTg2aDE5LjY2NXMzLjI5My0zNy4zMzYtMy03Ny4yMTFIODIuMTgyQzc4LjcxNyAyNC4xNzYgNjUuNTMgNDcuMyA2NC4wMTQgNDcuM1M0OS4zMSAyNC4xNzUgNDUuODQ1IDI0LjEzNnptMCAwIi8+PHBhdGggZmlsbD0idXJsKCNmKSIgZD0iTTYwLjEzIDk2LjY5MWE0LjY1IDQuNjUgMCAwIDEtNC42NTIgNC42NTMgNC42NTQgNC42NTQgMCAwIDEgMC05LjMwOSA0LjY1NSA0LjY1NSAwIDAgMSA0LjY1MyA0LjY1NnptMCAwIi8+PHBhdGggZmlsbD0idXJsKCNnKSIgZD0iTTc3LjE5OCA5Ni42OTFhNC42NSA0LjY1IDAgMSAxLTkuMzAxIDAgNC42NTIgNC42NTIgMCAxIDEgOS4zMDUgMHptMCAwIi8+PHVzZSB4bGluazpocmVmPSIjaCIgbWFzaz0idXJsKCNpKSIgdHJhbnNmb3JtPSJzY2FsZSgxLjAwMDAzIDEpIi8+PHVzZSB4bGluazpocmVmPSIjaiIgbWFzaz0idXJsKCNrKSIgdHJhbnNmb3JtPSJzY2FsZSgxLjAwMDAzIDEpIi8+PC9zdmc+Cg==" x="0" y="4" width="48" height="48" />
     
   <g transform="translate(48, 4)" filter="url(#badgeShadow)">
@@ -116,7 +110,13 @@
     <text x="72" y="46" fill="#475569" font-size="12" font-weight="700">피드 본문 캐시</text>
   </g>
 
-  <g transform="translate(875, 370)">
+  <g transform="translate(875, 298)">
+    <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMzIgMzIiPjxnIGZpbGw9Im5vbmUiPjxwYXRoIGZpbGw9IiNkM2QzZDMiIGQ9Ik0xNC41IDMwQzIwLjg1MSAzMCAyNiAyNC44NTEgMjYgMTguNVMyMC44NTEgNyAxNC41IDdTMyAxMi4xNDkgMyAxOC41UzguMTQ5IDMwIDE0LjUgMzAiLz48cGF0aCBmaWxsPSIjOWI5YjliIiBkPSJNMTQuNDIgMjcuNWMtNS4xNyAwLTkuMzgtNC43LTkuMzgtOS44N0gyMy44YzAgNS4xNy00LjIxIDkuODctOS4zOCA5Ljg3Ii8+PHBhdGggZmlsbD0iI2U2ZTZlNiIgZD0iTTIxLjQgMTIuMzhhOS4zNSA5LjM1IDAgMCAwLTYuOTgtMy4xM2E5LjM3IDkuMzcgMCAwIDAtNi45OSAzLjEzSDUuMDR2NS4yNWMwIDUuMTcgNC4yMSA5LjM4IDkuMzggOS4zOGM0LjM3OCAwIDguMDY4LTMuMDE5IDkuMDk1LTcuMDgzbDEuMDYtMS4wNHMtLjc4OC0uNjUyLS43NzktLjk5NnEuMDA0LS4xMy4wMDQtLjI2MXYtNS4yNXoiLz48cGF0aCBmaWxsPSIjZjRmNGY0IiBkPSJNMjMuNzkgMTIuMzhhOS4zOCA5LjM4IDAgMSAxLTEuMDgtNC4zNzJRMjIuODY1IDggMjMuMDIgOGMzLjMgMCA1Ljk4IDIuNjggNS45OCA1Ljk4YTUuOTg0IDUuOTg0IDAgMCAxLTUuNDg4IDUuOTZhOS40IDkuNCAwIDAgMCAuMjg1LTIuMDU2QTMuOTk0IDMuOTk0IDAgMCAwIDI3IDEzLjk4YzAtMi4wMy0xLjUzLTMuNzE4LTMuNTA3LTMuOTUyYy4xOTQuNzUyLjI5NyAxLjU0LjI5NyAyLjM1MiIvPjxwYXRoIGZpbGw9IiM3ZDQ1MzMiIGQ9Ik0xNC40MSAyMC42N2E4LjI5IDguMjkgMCAwIDAgOC4yOS04LjI5YzAtNC41NzgtNS4wMzUtNy4yOS04LjI5LTcuMjljLTIuNzg2IDAtOC4yOSAyLjcxMi04LjI5IDcuMjlhOC4yOSA4LjI5IDAgMCAwIDguMjkgOC4yOSIvPjxwYXRoIGZpbGw9IiM5YjliOWIiIGQ9Ik02LjE0IDEyLjk2NmMuMzAxLTMuMSAzLjg4OS02Ljg3NiA4LjI3LTYuODc2YzQuMzggMCA3Ljk2NyAzLjgyNyA4LjI3IDYuODhxLjAyLS4yOTMuMDItLjU5YTguMjkgOC4yOSAwIDEgMC0xNi41Ni41ODYiLz48L2c+PC9zdmc+" x="0" y="4" width="48" height="48" />
+    <text x="72" y="25" fill="#0f172a" font-size="15" font-weight="700">Caffeine Cache</text>
+    <text x="72" y="46" fill="#475569" font-size="12" font-weight="700">인플루언서 로컬 캐시</text>
+  </g>
+
+  <g transform="translate(875, 376)">
     <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4KICAgIDxwYXRoIGZpbGw9IiMzNDM3NDEiIGQ9Ik00IDY0YzAgNS41MzUuNzc3IDEwLjg3OSAyLjA5OCAxNkg4NGM4LjgzNiAwIDE2LTcuMTY0IDE2LTE2cy03LjE2NC0xNi0xNi0xNkg2LjA5OEE2My43MzggNjMuNzM4IDAgMCAwIDQgNjQiLz4KICAgIDxwYXRoIGZpbGw9IiNmZWM1MTQiIGQ9Ik0xMTEuNjk1IDMwLjY0OEE2MS40ODUgNjEuNDg1IDAgMCAwIDExNy45MjIgMjRDMTA2LjE4OCA5LjM3OSA4OC4xOTkgMCA2OCAwIDQyLjcxNSAwIDIwLjk1NyAxNC43MSAxMC41NzQgMzZIOTguMDRhMjAuMTIzIDIwLjEyMyAwIDAgMCAxMy42NTItNS4zNTIiLz4KICAgIDxwYXRoIGZpbGw9IiMwMGJmYjMiIGQ9Ik05OC4wNCA5MkgxMC41NzdDMjAuOTYxIDExMy4yOSA0Mi43MTUgMTI4IDY4IDEyOGMyMC4yIDAgMzguMTg4LTkuMzgzIDQ5LjkyMi0yNGE2MS4xIDYxLjEgMCAwIDAtNi4yMjctNi42NDhBMjAuMTMzIDIwLjEzMyAwIDAgMCA5OC4wNCA5MiIvPgo8L3N2Zz4K" x="0" y="4" width="48" height="48" />
     
   <g transform="translate(48, 4)" filter="url(#badgeShadow)">
@@ -162,27 +162,25 @@
   </g>
 
   <g>
-    <path d="M 122 284 H 170" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
+    <path d="M 122 248 H 170" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
 
-    <path d="M 380 284 H 450" fill="none" stroke="#475569" stroke-width="1.8" marker-start="url(#arrowStart)" marker-end="url(#arrow)" />
-    <text x="415" y="274" fill="#334155" font-size="11" font-weight="700" text-anchor="middle">HTTPS</text>
+    <path d="M 380 248 H 450" fill="none" stroke="#475569" stroke-width="1.8" marker-start="url(#arrowStart)" marker-end="url(#arrow)" />
+    <text x="415" y="238" fill="#334155" font-size="11" font-weight="700" text-anchor="middle">HTTPS</text>
 
-    <path d="M 560 118 V 204" fill="none" stroke="#475569" stroke-width="1.8" marker-start="url(#arrowStart)" marker-end="url(#arrow)" />
-    <text x="600" y="165" fill="#475569" font-size="11" font-weight="700" text-anchor="middle">로컬 캐시</text>
+    <path d="M 670 248 H 805" fill="none" stroke="#475569" stroke-width="1.8" marker-start="url(#arrowStart)" />
+    <path d="M 805 92 V 404" fill="none" stroke="#475569" stroke-width="1.8" />
+    <path d="M 805 92 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
+    <path d="M 805 170 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
+    <path d="M 805 248 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
+    <path d="M 805 326 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
+    <path d="M 805 404 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
 
-    <path d="M 670 260 H 805" fill="none" stroke="#475569" stroke-width="1.8" marker-start="url(#arrowStart)" />
-    <path d="M 805 104 V 398" fill="none" stroke="#475569" stroke-width="1.8" />
-    <path d="M 805 104 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
-    <path d="M 805 202 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
-    <path d="M 805 300 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
-    <path d="M 805 398 H 865" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
-
-    <path d="M 560 492 V 364" fill="none" stroke="#475569" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrow)" />
-    <text x="600" y="432" fill="#475569" font-size="11" font-weight="700" text-anchor="middle">메트릭 수집</text>
+    <path d="M 560 492 V 328" fill="none" stroke="#475569" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrow)" />
+    <text x="600" y="416" fill="#475569" font-size="11" font-weight="700" text-anchor="middle">메트릭 수집</text>
 
     <path d="M 526 578 H 594" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
 
-    <path d="M 668 320 H 736 V 526 H 1034 V 548" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
+    <path d="M 668 296 H 736 V 526 H 1034 V 548" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
     <path d="M 859 526 V 548" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arrow)" />
   </g>
 </svg>
