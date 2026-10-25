@@ -1,18 +1,16 @@
 <div align="center">
 
-<img src="./docs/assets/main-feed.webp" width="100%" alt="TRIT Main Banner" />
-
-<br/><br/>
-
 <h1>TRIT</h1>
 
-여행을 '찾고–담고–기록하는' 여행 기반 SNS
+<p>여행을 '찾고–담고–기록하는' 여행 기반 SNS</p>
 
-[🎥 서비스 시연 영상](https://www.youtube.com/watch?v=Y2AJf9LVbQk) &nbsp;|&nbsp; [📄 150만 가상 데이터 기반 1,500 VU 부하 테스트 리포트](./PERFORMANCE_TUNING_PORTFOLIO.md)
+<br/>
+
+<img src="./docs/assets/main-feed.webp" width="100%" alt="TRIT Main Banner" />
 
 </div>
 
----
+<br/>
 
 <h3>서비스 소개</h3>
 
@@ -20,7 +18,9 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 
 사용자는 단순한 여행 일정 계획을 넘어서 다른 사용자의 여행 루트를 참고하고, 마음에 드는 일정을 스크랩하거나, 다녀온 장소를 여행 로그로 기록하며 자신만의 취향 기반 여행 아카이브를 만들어갈 수 있습니다.
 
----
+[🎥 서비스 시연 영상](https://www.youtube.com/watch?v=Y2AJf9LVbQk) &nbsp;|&nbsp; [📄 150만 가상 데이터 기반 1,500 VU 부하 테스트 리포트](./PERFORMANCE_TUNING_PORTFOLIO.md)
+
+<br/>
 
 <h3>주요 기능</h3>
 
@@ -80,7 +80,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 * 다른 사용자의 여행 기록 탐색
 * 좋아요 / 친구 추가 / 알림 기능
 
----
+<br/>
 
 <h3>서비스 아키텍처</h3>
 
@@ -88,7 +88,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   <img src="./docs/architecture.svg" width="100%" alt="TRIT System Architecture" />
 </div>
 
----
+<br/>
 
 <h3>기술 스택</h3>
 
@@ -144,7 +144,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
   <img src="https://img.shields.io/badge/OpenAI_GPT--4o--mini-412991?style=for-the-badge&logo=openai&logoColor=white" />
 </p>
 
----
+<br/>
 
 <h3>ERD</h3>
 
@@ -160,7 +160,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 <img width="800" alt="전체 도메인 ERD" src="https://github.com/user-attachments/assets/c93bc972-d5db-441c-9439-78318d6d556d" />
 </details>
 
----
+<br/>
 
 <h3>스크린샷</h3>
 
@@ -245,7 +245,7 @@ TRIT(트릿)은 일상 속 짧은 외출과 여행을 기록하고, 다른 사�
 </table>
 </details>
 
----
+<br/>
 
 <h3>로컬 실행 가이드</h3>
 
@@ -268,7 +268,7 @@ npm install
 npm run dev
 ```
 
----
+<br/>
 
 <h3>팀원</h3>
 
