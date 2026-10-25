@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 52" width="140" height="52">
+  <style>
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      fill: #1f2328;
+      letter-spacing: -0.5px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .title { fill: #f0f6fc; }
+    }
+  </style>
+  <text x="70" y="41" text-anchor="middle" class="title">TRIT</text>
+</svg>

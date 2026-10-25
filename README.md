@@ -1,8 +1,8 @@
 <div align="center">
 
-<h1>TRIT</h1>
+<h1><img src="./docs/assets/trit-title.svg" alt="TRIT" height="46" /></h1>
 
-<p>여행을 '찾고–담고–기록하는' 여행 기반 SNS</p>
+<p>🧳 여행을 '찾고–담고–기록하는' 여행 기반 SNS</p>
 
 <br/>
 
