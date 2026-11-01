@@ -113,9 +113,9 @@ public interface UserMapper {
             "f.id, f.role_id, f.status_id, f.email, f.nickname, f.profile_image_url, " +
             "fp.bio, fp.intro, fp.home_region_id, fp.travel_style_summary, fp.travel_style_id, fp.profile_banner_url, fp.is_profile_public, fp.friends_count " +
             "FROM friendship fs " +
-            "JOIN user f ON (fs.user_id_a = f.id OR fs.user_id_b = f.id) AND f.id != #{userId} " +
+            "JOIN user f ON f.id = fs.user_id_b " +
             "LEFT JOIN user_profile fp ON f.id = fp.user_id " +
-            "WHERE (fs.user_id_a = #{userId} OR fs.user_id_b = #{userId})")
+            "WHERE fs.user_id_a = #{userId}")
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "role", column = "role_id", javaType = Role.class, typeHandler = com.ssafy.jjtrip.domain.user.mapper.RoleTypeHandler.class),
@@ -138,7 +138,7 @@ public interface UserMapper {
     void updateTravelStyleSummary(@Param("userId") Long userId, @Param("summary") String summary);
 
     @Update("UPDATE user_profile up SET friends_count = (" +
-            "SELECT COUNT(*) FROM friendship f WHERE f.user_id_a = up.user_id OR f.user_id_b = up.user_id)")
+            "SELECT COUNT(*) FROM friendship f WHERE f.user_id_a = up.user_id)")
     void syncAllFriendsCounts();
 
     @Update("UPDATE user_profile SET friends_count = friends_count + 1 WHERE user_id = #{userId}")
